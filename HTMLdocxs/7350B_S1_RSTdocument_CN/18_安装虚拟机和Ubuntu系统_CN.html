@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>安装虚拟机和Ubuntu系统 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/18_安装虚拟机和Ubuntu系统_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Ubuntu安装Linux版Vitis软件" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html" />
+    <link rel="prev" title="PCIe ROOT枚举测试" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/18_安装虚拟机和Ubuntu系统_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>安装虚拟机和Ubuntu系统</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">虚拟机软件安装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Ubuntu安装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装系统</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">修改软件源服务器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bashsh">设置bash为默认sh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">设置屏幕锁定时间</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">常见问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">虚拟机要求虚拟化支持</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ubuntu">
+<h1>安装虚拟机和Ubuntu系统<a class="headerlink" href="#ubuntu" title="此标题的永久链接">#</a></h1>
+<p>后面的教程要涉及到嵌入式Linux开发，一般需要一台Linux操作系统主机，用来编译u-boot或者Linux-kernel。在Windows操作系统的电脑上安装个虚拟机，再在虚拟机上安装Linux操作系统是最便捷的方法了。</p>
+<section id="id1">
+<h2>虚拟机软件安装<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h2>
+<p>我们提供的虚拟机的安装软件版本为VMware-worksation-full
+12.1.1。用户可以在我们提供的资料里找到, 双击
+“VMware-workstation-full-12.1.1-3770994.exe”
+图标开始安装。因为安装比较简单，所以具体的安装步骤我们这里不做具体介绍了，用户只要按照默认安装项一直点”Next”按键来进行安装。安装完成的最后一个界面里，我们需要选择许可证来输入一个VMware12的序列号。</p>
+<img alt="../_images/image190.png" src="../_images/image190.png" />
+<img alt="../_images/image249.png" src="../_images/image249.png" />
+<p>安装完成后，桌面上有VMware Workstation Pro的图标。</p>
+<img alt="../_images/image330.png" src="../_images/image330.png" />
+</section>
+<section id="id2">
+<h2>Ubuntu安装<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<section id="id3">
+<h3>安装系统<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h3>
+<p>安装好虚拟机后，就要在虚拟机上安装Linux 操作系统了。鉴于ubuntu
+Linux桌面操作系统的安装以及配置较为简单，所以我们选择了ubuntu桌面操作系统。</p>
+<p>本教程使用Ubuntu 22.4.1 LTS 64位操作系统（ubuntu-22.4.1-desktop-amd64）</p>
+<p>如果使用其他版本，可能有不可预料的错误，请保持版本一致，请不要升级系统。</p>
+<p>ubuntu安装步骤如下：</p>
+<ol class="arabic simple">
+<li><p>双击桌面的VMware Workstation
+Pro的图标，然后在VMware工作界面上点击“创建新的虚拟机”图标。</p></li>
+</ol>
+<img alt="../_images/image425.png" src="../_images/image425.png" />
+<ol class="arabic simple" start="2">
+<li><p>选择典型，下一步。</p></li>
+</ol>
+<img alt="../_images/image519.png" src="../_images/image519.png" />
+<ol class="arabic simple" start="3">
+<li><p>选择”安装程序光盘映像文件(iso)”项，然后点击浏览找到ubunt的光盘映像文件“ubuntu-22.4.1-desktop-amd64.iso”。</p></li>
+</ol>
+<img alt="../_images/image617.png" src="../_images/image617.png" />
+<ol class="arabic simple" start="4">
+<li><p>虚拟机名称可以自己修改，安装位置需要选择安装到硬盘空间比较充足的磁盘</p></li>
+</ol>
+<img alt="../_images/image717.png" src="../_images/image717.png" />
+<ol class="arabic simple" start="5">
+<li><p>设置最大的磁盘大小为300G，我们需要在虚拟机里安装软件，这里预留空间大一些。用户可以根据自己的硬盘空间选择合适的空间尺寸，建议大于等于300G。</p></li>
+</ol>
+<img alt="../_images/image817.png" src="../_images/image817.png" />
+<ol class="arabic simple" start="6">
+<li><p>选择自定义硬件</p></li>
+</ol>
+<img alt="../_images/image916.png" src="../_images/image916.png" />
+<ol class="arabic simple" start="7">
+<li><p>可以根据修改修改内存大小和处理器核心，网络适配器选项，网络连接选择桥接模式，内存建议设置为8G，否则编译会出错。</p></li>
+</ol>
+<img alt="../_images/image1016.png" src="../_images/image1016.png" />
+<ol class="arabic simple" start="8">
+<li><p>点击完成就开始安装Ubuntu了</p></li>
+</ol>
+<img alt="../_images/image1121.png" src="../_images/image1121.png" />
+<ol class="arabic simple" start="9">
+<li><p>安装完成以后进入系统</p></li>
+</ol>
+</section>
+<section id="id4">
+<h3>修改软件源服务器<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>为了以后安装软件方便，我们要设置一下软件源，点击应用菜单，搜索Software
+&amp; Updates</p></li>
+</ol>
+<img alt="../_images/image1217.png" src="../_images/image1217.png" />
+<ol class="arabic simple" start="2">
+<li><p>在“Software &amp; Updates”中选择“Other…”</p></li>
+</ol>
+<img alt="../_images/image1315.png" src="../_images/image1315.png" />
+<ol class="arabic simple" start="3">
+<li><p>点击“Select Best Server”，可以测试出一个最快的服务器，然后选择“Choose
+Server”，这些操作都是基于虚拟机能够连接互联网的情形。</p></li>
+</ol>
+<img alt="../_images/image1414.png" src="../_images/image1414.png" />
+<ol class="arabic simple" start="4">
+<li><p>输入密码，完成软件源修改</p></li>
+</ol>
+<img alt="../_images/image1513.png" src="../_images/image1513.png" />
+</section>
+<section id="bashsh">
+<h3>设置bash为默认sh<a class="headerlink" href="#bashsh" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>Ctrl+Alt+T打开终端</p></li>
+</ol>
+<img alt="../_images/image1612.png" src="../_images/image1612.png" />
+<ol class="arabic simple" start="2">
+<li><p>输入命令，Configuring dash选择“No”，回车确认</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>sudo dpkg-reconfigure dash</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image1712.png" src="../_images/image1712.png" />
+</section>
+<section id="id5">
+<h3>设置屏幕锁定时间<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h3>
+<p>为了能复制大文件到Ubuntu系统，我们取消屏幕锁定</p>
+<img alt="../_images/image1811.png" src="../_images/image1811.png" />
+</section>
+</section>
+<section id="id6">
+<h2>常见问题<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h2>
+<section id="id7">
+<h3>虚拟机要求虚拟化支持<a class="headerlink" href="#id7" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>如果安装Ubuntu弹出以下的错误信息框的话，用户需要重启电脑，进入BIOS里进行设置。</p></li>
+</ol>
+<img alt="../_images/image1911.png" src="../_images/image1911.png" />
+<p>重启电脑后，进入到BIOS里，找到Intel虚拟化技术这一项，点击开启。不同的主板，可能名字不太一样。</p>
+<img alt="../_images/image20.jpeg" src="../_images/image20.jpeg" />
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">PCIe ROOT枚举测试</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">Ubuntu安装Linux版Vitis软件</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">虚拟机软件安装</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Ubuntu安装</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装系统</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">修改软件源服务器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bashsh">设置bash为默认sh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">设置屏幕锁定时间</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">常见问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">虚拟机要求虚拟化支持</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

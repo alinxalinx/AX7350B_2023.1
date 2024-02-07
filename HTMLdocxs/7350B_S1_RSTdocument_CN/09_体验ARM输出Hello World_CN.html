@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>体验ARM，裸机输出“Hello World” &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/09_体验ARM输出Hello World_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="PS点亮PL的LED灯" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html" />
+    <link rel="prev" title="GTX收发器误码率测试IBERT实验" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/09_体验ARM输出Hello World_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>体验ARM，裸机输出“Hello World”</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">硬件介绍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis调试</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application">创建Application工程</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">本章小结</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="arm-hello-world">
+<h1>体验ARM，裸机输出“Hello World”<a class="headerlink" href="#arm-hello-world" title="此标题的永久链接">#</a></h1>
+<p><strong>实验VIvado工程为“ps_hello”。</strong></p>
+<p>前面的实验都是在PL端进行的，可以看到和普通FPGA开发流程没有任何区别，ZYNQ的主要优势就是FPGA和ARM的合理结合，这对开发人员提出了更高的要求。从本章开始，我们开始使用ARM，也就是我们说的PS，本章我们使用一个简单的串口打印来体验一下Vivado
+Vitis和PS端的特性。</p>
+<section id="id1">
+<h2>硬件介绍<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h2>
+<p>我们从原理图中可以看到ZYNQ芯片分为PL和PS，PS端的IO分配相对是固定的，不能任意分配，而且不需要在Vivado软件里分配管脚，虽然本实验仅仅使用了PS，但是还要建立一个Vivado工程，用来配置PS管脚。</p>
+</section>
+<section id="vivado">
+<h2>Vivado工程建立<a class="headerlink" href="#vivado" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>创建一个名为“ps_hello”的工程</p></li>
+</ol>
+<img alt="../_images/image126.png" src="../_images/image126.png" />
+<ol class="arabic simple" start="2">
+<li><p>点击“Create Block Design”，创建一个Block设计</p></li>
+</ol>
+<img alt="../_images/image216.png" src="../_images/image216.png" />
+<ol class="arabic simple" start="3">
+<li><p>“Design
+name”这里不做修改，保持默认“design_1”，这里可以根据需要修改，不过名字要尽量简短，否则在Windows下编译会有问题。</p></li>
+</ol>
+<img alt="../_images/image313.png" src="../_images/image313.png" />
+<ol class="arabic simple" start="4">
+<li><p>点击“Add IP”快捷图标</p></li>
+</ol>
+<img alt="../_images/image48.png" src="../_images/image48.png" />
+<ol class="arabic simple" start="5">
+<li><p>搜索“zynq”，在搜索结果列表中双击“ZYNQ7 Processing System”</p></li>
+</ol>
+<img alt="../_images/image58.png" src="../_images/image58.png" />
+<ol class="arabic simple" start="6">
+<li><p>双击Block图中的“processing_system7_0”，配置相关参数</p></li>
+</ol>
+<img alt="../_images/image67.png" src="../_images/image67.png" />
+<ol class="arabic simple" start="7">
+<li><p>在“PS-PL Configuration”选项中展开所以项目</p></li>
+</ol>
+<img alt="../_images/image77.png" src="../_images/image77.png" />
+<ol class="arabic simple" start="8">
+<li><p>取消“M AXI GP0
+interface”接口，这个接口可以扩展PL端的AXI接口外设，所以PL如果要和PS进行数据交互，都要按照AXI总线协议进行，xilinx为我们提供了大量的AXI接口的IP
+核。</p></li>
+</ol>
+<img alt="../_images/image87.png" src="../_images/image87.png" />
+<ol class="arabic simple" start="9">
+<li><p>从原理图中我们可以找到串口连接在PS的MIO12-MIO13上，所以在“Peripheral
+I/O Pins”选项中使能UART1（MIO12-13），Bank 0 电压选择“LVCMOS
+3.3V”，Bank 1电压选择“LVCOMS 1.8
+V”，本实验仅仅使用了一个串口功能，这里就不再使能其他设备。</p></li>
+</ol>
+<img alt="../_images/image97.png" src="../_images/image97.png" />
+<ol class="arabic simple" start="10">
+<li><p>在“Clock
+Configuration”选项卡中我们可以配置PS时钟输入频率，这里默认是33.333333，和板子上一致，不用修改，CPU频率默认666.666666Mhz，这里也不修改。同时PS还可以给PL端提供4路时钟，频率可以配置，这里不需要，所以保持默认即可。</p></li>
+</ol>
+<img alt="../_images/image107.png" src="../_images/image107.png" />
+<ol class="arabic simple" start="11">
+<li><p>在“DDR Configuration”选项卡中可以配置PS端ddr的参数，“Memory
+Part”选择“MT41J256M16 RE-125”,“Effective DRAM Bus Width”，选择“32
+Bit”，到此配置完成，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image1112.png" src="../_images/image1112.png" />
+<ol class="arabic simple" start="12">
+<li><p>点击“Run Block Automation”，vivado软件会自动完成一些导出端口的任务</p></li>
+</ol>
+<img alt="../_images/image127.png" src="../_images/image127.png" />
+<ol class="arabic simple" start="13">
+<li><p>点击“OK”</p></li>
+</ol>
+<img alt="../_images/image135.png" src="../_images/image135.png" />
+<ol class="arabic simple" start="14">
+<li><p>点击“OK”以后我们可以看到PS端导出一些管脚，包括DDR还有FIXED_IO，按键“Ctrl
++ s”保存设计</p></li>
+</ol>
+<img alt="../_images/image145.png" src="../_images/image145.png" />
+<ol class="arabic simple" start="15">
+<li><p>选择Block设计，右键“Create HDL Wrapper…”,创建一个Verilog或VHDL文件</p></li>
+</ol>
+<img alt="../_images/image154.png" src="../_images/image154.png" />
+<ol class="arabic simple" start="16">
+<li><p>保持默认选项，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image163.png" src="../_images/image163.png" />
+<ol class="arabic simple" start="17">
+<li><p>展开设计可以看到PS被当成一个普通IP 来使用。</p></li>
+</ol>
+<img alt="../_images/image173.png" src="../_images/image173.png" />
+<ol class="arabic simple" start="18">
+<li><p>选择block设计，右键“Generate Output Products”</p></li>
+</ol>
+<img alt="../_images/image183.png" src="../_images/image183.png" />
+<ol class="arabic simple" start="19">
+<li><p>点击“Generate”</p></li>
+</ol>
+<img alt="../_images/image193.png" src="../_images/image193.png" />
+<ol class="arabic simple" start="20">
+<li><p>在菜单栏“File -&gt; Export -&gt; Export
+Hardware…”导出硬件信息，这里就包含了PS了的配置信息。</p></li>
+</ol>
+<img alt="../_images/image203.png" src="../_images/image203.png" />
+<ol class="arabic simple" start="21">
+<li><p>在弹出的对话框中点击“next”，因为实验仅仅是使用了PS的串口，不需要PL参与，这里就没有使能“Include
+bitstream”，继续步骤直到finish。</p></li>
+</ol>
+<img alt="../_images/image217.png" src="../_images/image217.png" />
+<img alt="../_images/image223.png" src="../_images/image223.png" />
+<img alt="../_images/image233.png" src="../_images/image233.png" />
+<img alt="../_images/image242.png" src="../_images/image242.png" />
+<img alt="../_images/image251.png" src="../_images/image251.png" />
+<p>此时刚刚的路径下就会输出一个xsa文件，这个文件就是这个文件就包含了Vivado硬件设计的信息，供软件开发人员使用。</p>
+<img alt="../_images/image261.png" src="../_images/image261.png" />
+</section>
+<section id="vitis">
+<h2>Vitis调试<a class="headerlink" href="#vitis" title="此标题的永久链接">#</a></h2>
+<section id="application">
+<h3>创建Application工程<a class="headerlink" href="#application" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>Vitis是独立的软件，我们可以通过ToolsLaunch Vitis打开Vitis软件</p></li>
+</ol>
+<img alt="../_images/image271.png" src="../_images/image271.png" />
+<p>也可以需要双击Vitis软件打开</p>
+<img alt="../_images/image281.png" src="../_images/image281.png" />
+<p>选择之前新建的文件夹，点击”Launch”</p>
+<img alt="../_images/image291.png" src="../_images/image291.png" />
+<ol class="arabic simple" start="2">
+<li><p>启动Vitis之后界面如下，点击“Create Application
+Project”，这个选项会生成APP工程以及Platfrom工程，Platform工程类似于以前版本的hardware
+platform，包含了硬件支持的相关文件以及BSP。</p></li>
+</ol>
+<img alt="../_images/image301.png" src="../_images/image301.png" />
+<ol class="arabic simple" start="3">
+<li><p>点击Next</p></li>
+</ol>
+<img alt="../_images/image314.png" src="../_images/image314.png" />
+<ol class="arabic simple" start="4">
+<li><p>点击“Create a new platform
+hardware(XSA)，软件已经提供了一些板卡的硬件平台，但对于我们自己的硬件平台，可以选择”+”</p></li>
+</ol>
+<img alt="../_images/image322.png" src="../_images/image322.png" />
+<ol class="arabic simple" start="5">
+<li><p>选择之前生成的xsa，点击打开</p></li>
+</ol>
+<img alt="../_images/image332.png" src="../_images/image332.png" />
+<ol class="arabic simple" start="6">
+<li><p>最下面的Generate boot
+components选项，如果勾选上，软件会自动生成fsbl工程，我们一般选择默认勾选上。点击Next</p></li>
+</ol>
+<img alt="../_images/image341.png" src="../_images/image341.png" />
+<ol class="arabic simple" start="7">
+<li><p>项目名称填入“hello”，也可以根据自己的需要填写,CPU默认选择ps7_cortexa9_0，OS选择standalone，点击Next</p></li>
+</ol>
+<img alt="../_images/image351.png" src="../_images/image351.png" />
+<img alt="../_images/image361.png" src="../_images/image361.png" />
+<ol class="arabic simple" start="8">
+<li><p>模板选择Hello World，点击Finish</p></li>
+</ol>
+<img alt="../_images/image371.png" src="../_images/image371.png" />
+<ol class="arabic simple" start="9">
+<li><p>完成之后可以看到生成了两个工程，一个是硬件平台工程，即之前所说的Platfrom工程，一个是APP工程</p></li>
+</ol>
+<img alt="../_images/image381.png" src="../_images/image381.png" />
+<ol class="arabic simple" start="10">
+<li><p>展开Platform工程后可以看到里面包含有BSP工程，以及zynq_fsbl工程（此工程即选择Generate
+boot
+components之后的结果）,双击platform.spr即可看到Platform对应生成的BSP工程，可以在这里对BSP进行配置。软件开发人员比较清楚，BSP也就是Board
+Support
+Package板级支持包的意思，里面包含了开发所需要的驱动文件，用于应用程序开发。可以看到Platform下有多个BSP，这是跟以往的Vitis软件不一样的，其中zynq_fsbl即是fsbl的BSP，standalone
+on
+ps7_cortexa9_0即是APP工程的BSP。也可以在Platform里添加BSP，在以后的例程中再讲。</p></li>
+</ol>
+<img alt="../_images/image391.png" src="../_images/image391.png" />
+<ol class="arabic simple" start="11">
+<li><p>点开BSP，即可看到工程带有的外设驱动，其中Documentation是xilinx提供的驱动的说明文档，Import
+Examples是xilinx提供的example工程，加快学习。</p></li>
+</ol>
+<img alt="../_images/image40.png" src="../_images/image40.png" />
+<ol class="arabic simple" start="12">
+<li><p>选中APP工程，右键Build
+Project，或者点击菜单栏的“锤子”按键，进行工程编译</p></li>
+</ol>
+<img alt="../_images/image411.png" src="../_images/image411.png" />
+<ol class="arabic simple" start="13">
+<li><p>可以在Console看到编译过程</p></li>
+</ol>
+<img alt="../_images/image421.png" src="../_images/image421.png" />
+<p>编译结束，生成elf文件</p>
+<img alt="../_images/image431.png" src="../_images/image431.png" />
+<ol class="arabic simple" start="14">
+<li><p>连接JTAG线到开发板、UART的USB线到PC</p></li>
+<li><p>使用PuTTY软件做为串口终端调试工具，PuTTY是一个免安装的小软件</p></li>
+</ol>
+<img alt="../_images/image441.png" src="../_images/image441.png" />
+<ol class="arabic simple" start="16">
+<li><p>选择Serial，Serial
+line填写COM3，Speed填写115200，COM3串口号根据设备管理器里显示的填写，点击“Open”</p></li>
+</ol>
+<img alt="../_images/image451.png" src="../_images/image451.png" />
+<ol class="arabic simple" start="17">
+<li><p>给开发板上电，准备运行程序，开发板出厂时带有程序，这里可以把运行模式选择JTAG模式，然后重新上电。选择“hello”，右键，可以看到很多选项，本实验要用到这里的“Run
+as”，就是把程序运行起来，“Run as”里又有很对选项，选择第一个“Launch
+on Hardware(System Debuger)”，使用系统调试，直接运行程序。</p></li>
+</ol>
+<img alt="../_images/image461.png" src="../_images/image461.png" />
+<ol class="arabic simple" start="18">
+<li><p>这个时候观察PuTTY软件，即可以看到输出”Hello World”</p></li>
+</ol>
+<img alt="../_images/image471.png" src="../_images/image471.png" />
+<ol class="arabic simple" start="19">
+<li><p>为了保证系统的可靠调试，最好是右键“Run As -&gt; Run Configuration…”</p></li>
+</ol>
+<img alt="../_images/image481.png" src="../_images/image481.png" />
+<ol class="arabic simple" start="20">
+<li><p>我们可以看一下里面的配置，其中Reset entire
+system是默认选中的，这是跟以前的Vitis软件不同的。如果系统中还有PL设计，还必须选择“Program
+FPGA”。</p></li>
+</ol>
+<img alt="../_images/image49.png" src="../_images/image49.png" />
+<ol class="arabic simple" start="21">
+<li><p>除了“Run As”，还可以“Debug As”，这样可以设置断点，单步运行</p></li>
+</ol>
+<img alt="../_images/image50.png" src="../_images/image50.png" />
+<ol class="arabic simple" start="22">
+<li><p>进入Debug模式</p></li>
+</ol>
+<img alt="../_images/image511.png" src="../_images/image511.png" />
+<ol class="arabic simple" start="23">
+<li><p>和其他C语言开发IDE一样，可以逐步运行、设置断点等</p></li>
+</ol>
+<img alt="../_images/image521.png" src="../_images/image521.png" />
+<ol class="arabic simple" start="24">
+<li><p>右上角可以切换IDE模式</p></li>
+</ol>
+<img alt="../_images/image531.png" src="../_images/image531.png" />
+</section>
+</section>
+<section id="id2">
+<h2>本章小结<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<p>本章从FPGA工程师和软件工程师两者角度出发，介绍了ZYNQ开发的经典流程，FPGA工程师的主要工作是搭建好硬件平台，提供硬件描述文件xsa给软件工程师，软件工程师在此基础上开发应用程序。本章是一个简单的例子介绍了FPGA和软件工程师协同工作，后续还会牵涉到PS与PL之间的联合调试，较为复杂，也是ZYNQ开发的核心部分。</p>
+<p>后续的工程都会以本章节的配置为准，后面不再介绍ZYNQ的基本配置。</p>
+<p>千里之行，始于足下，相信经过本章的学习，大家对ZYNQ开发有了基本概念，高楼稳不稳，要看地基打的牢不牢，虽然本章较为简单，但也有很多知识点待诸位慢慢消化。加油！！！</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">GTX收发器误码率测试IBERT实验</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">PS点亮PL的LED灯</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">硬件介绍</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis调试</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application">创建Application工程</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">本章小结</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

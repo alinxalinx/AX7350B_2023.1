@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>使用VDMA驱动HDMI显示 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/15_使用VDMA驱动HDMI显示_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="固化程序" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html" />
+    <link rel="prev" title="自定义IP实验" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/15_使用VDMA驱动HDMI显示_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>使用VDMA驱动HDMI显示</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis软件编写调试</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="vdmahdmi">
+<h1>使用VDMA驱动HDMI显示<a class="headerlink" href="#vdmahdmi" title="此标题的永久链接">#</a></h1>
+<p><strong>实验VIvado工程为“vdma_hdmi_out”。</strong></p>
+<p>PS没有集成显示控制系统，需要借助PL来实现，实现的方案有很多，但是都离不开DMA系统，DMA系统可以完成显示数据从ddr3读出到显示器的显示，降低CPU的开销，VDMA是xilinx开发的特殊DMA，专门用于视频输入输出，是学习xilinx
+FPGA视频处理的重要内容。</p>
+<p>前面的HDMI显示数据是PL内部产生的，这个实验中显示数据是PS生成的，然后PL通过VDMA送给HDMI接口。</p>
+<section id="vivado">
+<h2>Vivado工程建立<a class="headerlink" href="#vivado" title="此标题的永久链接">#</a></h2>
+<p>由于VDMA显示是一个非常重要的内容，本实验会详细介绍Vivado的搭建过程。</p>
+<ol class="arabic simple">
+<li><p>新建一个名为“vdma_hdmi_out”工程。</p></li>
+</ol>
+<img alt="../_images/image160.png" src="../_images/image160.png" />
+<ol class="arabic simple" start="2">
+<li><p>创建一个Block设计</p></li>
+</ol>
+<img alt="../_images/image230.png" src="../_images/image230.png" />
+<ol class="arabic simple" start="3">
+<li><p>设计名称保持默认不变</p></li>
+</ol>
+<img alt="../_images/image326.png" src="../_images/image326.png" />
+<ol class="arabic simple" start="4">
+<li><p>添加ZYNQ处理器</p></li>
+</ol>
+<img alt="../_images/image417.png" src="../_images/image417.png" />
+<ol class="arabic simple" start="5">
+<li><p>配置ZYNQ参数，使能HP0接口，用于VDMA快速读取ddr。</p></li>
+</ol>
+<img alt="../_images/image515.png" src="../_images/image515.png" />
+<ol class="arabic simple" start="6">
+<li><p>配置Bnak电平标准，Bank0为LVCMOS 3.3V，Bank1 为 LVCMOS 1.8V，使能串口</p></li>
+</ol>
+<img alt="../_images/image613.png" src="../_images/image613.png" />
+<ol class="arabic simple" start="7">
+<li><p>使能I2C0，并且选择EMIO，这样可以把I2C连接到PL端。</p></li>
+</ol>
+<img alt="../_images/image713.png" src="../_images/image713.png" />
+<ol class="arabic simple" start="8">
+<li><p>配置时钟，FCLK_CLK0配置为100Mhz，FCLK_CLK1配置为142Mhz，这个时钟用于VDMA读取数据。</p></li>
+</ol>
+<img alt="../_images/image813.png" src="../_images/image813.png" />
+<ol class="arabic simple" start="9">
+<li><p>配置ddr3，选择MT41256M16 RE-125</p></li>
+</ol>
+<img alt="../_images/image913.png" src="../_images/image913.png" />
+<ol class="arabic simple" start="10">
+<li><p>配置中断，使能IRQ_F2P，接收PL端的中断</p></li>
+</ol>
+<img alt="../_images/image1013.png" src="../_images/image1013.png" />
+<ol class="arabic simple" start="11">
+<li><p>添加VDMA IP</p></li>
+</ol>
+<img alt="../_images/image1118.png" src="../_images/image1118.png" />
+<ol class="arabic simple" start="12">
+<li><p>按照下图配置VDMA基本参数</p></li>
+</ol>
+<img alt="../_images/image1214.png" src="../_images/image1214.png" />
+<ol class="arabic simple" start="13">
+<li><p>配置VDMA高级参数</p></li>
+</ol>
+<img alt="../_images/image1312.png" src="../_images/image1312.png" />
+<ol class="arabic simple" start="14">
+<li><p>添加视频时序控制器</p></li>
+</ol>
+<img alt="../_images/image1411.png" src="../_images/image1411.png" />
+<ol class="arabic simple" start="15">
+<li><p>配置视频时序控制器参数</p></li>
+</ol>
+<img alt="../_images/image1510.png" src="../_images/image1510.png" />
+<ol class="arabic simple" start="16">
+<li><p>添加AXI流转视频输出控制器</p></li>
+</ol>
+<img alt="../_images/image169.png" src="../_images/image169.png" />
+<ol class="arabic simple" start="17">
+<li><p>配置AXI流转视频输出控制器参数</p></li>
+</ol>
+<img alt="../_images/image179.png" src="../_images/image179.png" />
+<ol class="arabic simple" start="18">
+<li><p>由于视频有很多分辨率，各种分辨的时钟频率不相同，需要使用一个动态时钟控制器，这个IP来自开源软件，找到例程里的repo目录，复制到自己的目录下</p></li>
+</ol>
+<img alt="../_images/image189.png" src="../_images/image189.png" />
+<ol class="arabic simple" start="19">
+<li><p>添加IP仓库</p></li>
+</ol>
+<img alt="../_images/image198.png" src="../_images/image198.png" />
+<ol class="arabic simple" start="20">
+<li><p>添加完成以后可以看到很多IP</p></li>
+</ol>
+<img alt="../_images/image207.png" src="../_images/image207.png" />
+<ol class="arabic simple" start="21">
+<li><p>添加动态时钟控制器</p></li>
+</ol>
+<img alt="../_images/image2112.png" src="../_images/image2112.png" />
+<ol class="arabic simple" start="22">
+<li><p>连接Vivado可能无法自动连接的时钟信号</p></li>
+</ol>
+<img alt="../_images/image2210.png" src="../_images/image2210.png" />
+<ol class="arabic simple" start="23">
+<li><p>连接其他一些关键信号</p></li>
+</ol>
+<img alt="../_images/image237.png" src="../_images/image237.png" />
+<img alt="../_images/image237.png" src="../_images/image237.png" />
+<ol class="arabic simple" start="24">
+<li><p>连接中断信号，需要先添加一个Concat IP，用于信号连接</p></li>
+</ol>
+<img alt="../_images/image246.png" src="../_images/image246.png" />
+<img alt="../_images/image255.png" src="../_images/image255.png" />
+<ol class="arabic simple" start="25">
+<li><p>使用Vivado自动连接功能，完成剩下的线连接</p></li>
+</ol>
+<img alt="../_images/image265.png" src="../_images/image265.png" />
+<ol class="arabic simple" start="26">
+<li><p>选择所有模块自动连接</p></li>
+</ol>
+<img alt="../_images/image275.png" src="../_images/image275.png" />
+<ol class="arabic simple" start="27">
+<li><p>运行“Run Block Automation”完成一些必要的端口导出</p></li>
+</ol>
+<img alt="../_images/image285.png" src="../_images/image285.png" />
+<ol class="arabic simple" start="28">
+<li><p>展开vid_io_out端口</p></li>
+</ol>
+<img alt="../_images/image295.png" src="../_images/image295.png" />
+<ol class="arabic simple" start="29">
+<li><p>选择我们需要的端口导出</p></li>
+</ol>
+<img alt="../_images/image305.png" src="../_images/image305.png" />
+<ol class="arabic simple" start="30">
+<li><p>导出IIC_0端口</p></li>
+</ol>
+<img alt="../_images/image3112.png" src="../_images/image3112.png" />
+<ol class="arabic simple" start="31">
+<li><p>导出视频时钟端口</p></li>
+</ol>
+<img alt="../_images/image327.png" src="../_images/image327.png" />
+<ol class="arabic simple" start="32">
+<li><p>名称修改为hdmi_out_clk</p></li>
+</ol>
+<img alt="../_images/image336.png" src="../_images/image336.png" />
+<ol class="arabic simple" start="33">
+<li><p>修改其他端口的名称</p></li>
+</ol>
+<img alt="../_images/image345.png" src="../_images/image345.png" />
+<ol class="arabic simple" start="34">
+<li><p>保存设计后按F6 检查设计，没有问题后创建HDL文件</p></li>
+</ol>
+<img alt="../_images/image355.png" src="../_images/image355.png" />
+<ol class="arabic simple" start="35">
+<li><p>添加HDMI输出的xdc文件，约束管脚</p></li>
+</ol>
+<img alt="../_images/image364.png" src="../_images/image364.png" />
+<ol class="arabic simple" start="36">
+<li><p>xdc文件内容如下</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_property</span> <span class="n">BITSTREAM</span><span class="o">.</span><span class="n">GENERAL</span><span class="o">.</span><span class="n">COMPRESS</span> <span class="n">TRUE</span> <span class="p">[</span><span class="n">current_design</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">CONFIG_VOLTAGE</span> <span class="mf">3.3</span> <span class="p">[</span><span class="n">current_design</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">CFGBVS</span> <span class="n">VCCO</span> <span class="p">[</span><span class="n">current_design</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">BITSTREAM</span><span class="o">.</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">UNUSEDPIN</span> <span class="n">PULLUP</span> <span class="p">[</span><span class="n">current_design</span><span class="p">]</span>
+
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">K13</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_clk</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">G16</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">E16</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">J15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">E15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">F15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">G15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">5</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">F14</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">6</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">H14</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">7</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">J13</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">8</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">K12</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">9</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">B11</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">C12</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">11</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">D13</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">12</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">A12</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">13</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">C13</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">14</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">A13</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">15</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">D14</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">16</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">D15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">17</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">A14</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">18</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">B14</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">19</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">A15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">20</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">B15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">21</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">D16</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">22</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">B16</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="mi">23</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">K15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_de</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">C11</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_hs</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">B12</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_vs</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">A17</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_i2c_scl_io</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">C16</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_i2c_sda_io</span><span class="p">]</span>
+
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_i2c_scl_io</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_i2c_sda_io</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_clk</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_de</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_hs</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="o">*</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS18</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_vs</span><span class="p">]</span>
+
+
+<span class="n">set_property</span> <span class="n">SLEW</span> <span class="n">FAST</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="o">*</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">DRIVE</span> <span class="mi">8</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">hdmi_out_data</span><span class="p">[</span><span class="o">*</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">SLEW</span> <span class="n">FAST</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_clk</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">SLEW</span> <span class="n">FAST</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_de</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">SLEW</span> <span class="n">FAST</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_hs</span><span class="p">]</span>
+<span class="n">set_property</span> <span class="n">SLEW</span> <span class="n">FAST</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">hdmi_out_vs</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>编译生成bit文件</p></li>
+</ol>
+</section>
+<section id="vitis">
+<h2>Vitis软件编写调试<a class="headerlink" href="#vitis" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>导出硬件</p></li>
+</ol>
+<img alt="../_images/image374.png" src="../_images/image374.png" />
+<img alt="../_images/image384.png" src="../_images/image384.png" />
+<ol class="arabic simple" start="2">
+<li><p>运行Vitis，新建一个名为vdma_hdmi的APP，已经预备了相关程序</p></li>
+</ol>
+<img alt="../_images/image394.png" src="../_images/image394.png" />
+<ol class="arabic simple" start="3">
+<li><p>由于程序文件较多，不再具体介绍，直接复制例程的源代码。删除src目录下的文件，使用例程的src目录文件代替</p></li>
+</ol>
+<img alt="../_images/image402.png" src="../_images/image402.png" />
+<ol class="arabic simple" start="4">
+<li><p>在Vitis下按F5刷新</p></li>
+<li><p>在display_ctrl文件夹中，diplay_ctrl.c主要是显示的控制，vga_mode.h中加入了一些显示分辨率的时序参数。</p></li>
+</ol>
+<img alt="../_images/image418.png" src="../_images/image418.png" />
+<p>在display_ctrl.c中，可以修改displayPtr-&gt;vMode，改变显示的分辨率。</p>
+<img alt="../_images/image423.png" src="../_images/image423.png" />
+<ol class="arabic simple" start="6">
+<li><p>Dynclk文件中，主要功能是根据不同的分辨率配置锁相环的时钟输出，产生像素时钟。</p></li>
+</ol>
+<img alt="../_images/image432.png" src="../_images/image432.png" />
+<ol class="arabic simple" start="7">
+<li><p>连接HDMI输出端口到显示器，编译运行</p></li>
+</ol>
+<img alt="../_images/image442.png" src="../_images/image442.png" />
+<ol class="arabic simple" start="8">
+<li><p>显示器显示出一幅图片</p></li>
+</ol>
+<img alt="../_images/image45.jpeg" src="../_images/image45.jpeg" />
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">自定义IP实验</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">固化程序</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis软件编写调试</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

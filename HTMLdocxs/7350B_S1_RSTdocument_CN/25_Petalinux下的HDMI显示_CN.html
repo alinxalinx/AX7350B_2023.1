@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Petalinux下的HDMI显示 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/25_Petalinux下的HDMI显示_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="使用Debian桌面系统" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html" />
+    <link rel="prev" title="Linux下GPIO实验" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/25_Petalinux下的HDMI显示_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Petalinux下的HDMI显示</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petalinux">Petalinux配置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">配置Linux内核</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">修改设备树</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">编译测试Petalinux工程</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">常见问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">如何防止系统休眠</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="petalinuxhdmi">
+<h1>Petalinux下的HDMI显示<a class="headerlink" href="#petalinuxhdmi" title="此标题的永久链接">#</a></h1>
+<p><strong>实验Vivado工程为“linux_base” ,在vivado.zip压缩包中。</strong></p>
+<p><strong>实验petalinux工程相关文件夹为“ax_peta_hdmi”</strong></p>
+<p>前面的教程中我们已经体验了使用Petalinux开发嵌入式Linux系统，但我们使用的功能仅仅是Petalinux冰山一角，Petalinux的强大功能需要我们不断的探索，本实验讲解如何使用一个自己的内核来做Linux，这样我们可以在内核里添加很多驱动，例如HDMI显示。</p>
+<p>开发板使用的没有HDMI接口芯片，但是使用了PFGA去完成编码，芯驿电子将Xilinx提供的内核中加入了HDMI编码IP的驱动。<strong>请使用其他版本软件开发者注意，本教程只提供修改版linux-xlnx-xlnx_rebase_v6.1_LTS内核，不提供其他版本修改版，也不提供修改说明</strong>。</p>
+<section id="petalinux">
+<h2>Petalinux配置<a class="headerlink" href="#petalinux" title="此标题的永久链接">#</a></h2>
+<p>本实验还是在前面实验的Petalinux工程修改，需要先掌握前面的实验内容。</p>
+<ol class="arabic simple">
+<li><p>打开终端，设置petalinux环境变量，运行下面命令</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>source /opt/pkg/petalinux/settings.sh</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="2">
+<li><p>运行下面命令设置vivado环境变量</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>source /tools/Xilinx/Vivado/2023.1/settings64.sh</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image1106.png" src="../_images/image1106.png" />
+<ol class="arabic simple" start="3">
+<li><p>将资料中第八章HDMI显示的bsp包复制到虚拟机里，运行命令，用bsp生成PetaLinux工程</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>petalinux-create -t project -n ax_peta -s ./hdmi.bsp</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image269.png" src="../_images/image269.png" />
+<ol class="arabic simple" start="4">
+<li><p>控制台进入新生成的ax_peta目录，使用下面命令配置petalinux内核来源以及离线编译，具体配置过程参考第五章的5.2和5.3，由于这里我们用的是bsp包，所以这些内容都已经配置好了，如果用户是用xsa文件生成的PetaLinux工程，就需要重新配置这些项。</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>petalinux-config</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image358.png" src="../_images/image358.png" />
+<ol class="arabic simple" start="5">
+<li><p>然后保存退出</p></li>
+</ol>
+<img alt="../_images/image435.png" src="../_images/image435.png" />
+</section>
+<section id="linux">
+<h2>配置Linux内核<a class="headerlink" href="#linux" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>运行下面的命令配置内核</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>petalinux-config -c kernel</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image528.png" src="../_images/image528.png" />
+<ol class="arabic simple" start="2">
+<li><p>在弹出的窗口中，进入Device Drivers → Graphics
+support，分别选择以下5项</p></li>
+</ol>
+<p>Xilinx DRM KMS Driver</p>
+<p>Xilinx DRM KMS bridge</p>
+<p>Digilent DRM Driver</p>
+<p>Xilinx DRM PL display driver</p>
+<p>Xilinx DRM VTC Driver</p>
+<img alt="../_images/image625.png" src="../_images/image625.png" />
+<ol class="arabic simple" start="3">
+<li><p>在Device Drivers → Graphics support → Frame buffer
+Devices中选择Support for frame buffer devices按y</p></li>
+</ol>
+<img alt="../_images/image724.png" src="../_images/image724.png" />
+<ol class="arabic simple" start="4">
+<li><p>在Device Drivers → Graphics support →Console display driver
+support选项中选择Framebuffer Console support按y</p></li>
+</ol>
+<img alt="../_images/image823.png" src="../_images/image823.png" />
+<ol class="arabic simple" start="5">
+<li><p>在Device Drivers → Common Clock Framework选项中选择Digilent
+axi_dynclk Driver按y</p></li>
+</ol>
+<img alt="../_images/image921.png" src="../_images/image921.png" />
+<ol class="arabic simple" start="6">
+<li><p>保存并退出</p></li>
+</ol>
+<img alt="../_images/image1021.png" src="../_images/image1021.png" />
+</section>
+<section id="id1">
+<h2>修改设备树<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h2>
+<p>设备树是描述设备信息的一种格式化文本，这种文本结构对类似于XML和JSON，
+什么？XML和JSON也不会？如果这些基础配置数据格式都没接触过学习设备树是要很长时间摸索的。每个驱动要求的设备树节点也是不同的，对于没接触过设备的开发人员，需要慢慢熟悉，在一次一次的使用种慢慢掌握。</p>
+<ol class="arabic simple">
+<li><p>打开petalinux工程文件中的名为system-user.dtsi的文件</p></li>
+</ol>
+<img alt="../_images/image1125.png" src="../_images/image1125.png" />
+<ol class="arabic simple" start="2">
+<li><p>修改设备树内容如下</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>/include/ “system-conf.dtsi”</p>
+<p>/ {</p>
+<p>model = “Zynq ALINX Development Board”;</p>
+<p>compatible = “alinx,zynq”, “xlnx,zynq-7000”;</p>
+<p>aliases {</p>
+<p>ethernet0 = “&amp;gem0”;</p>
+<p>serial0 = “&amp;uart1”;</p>
+<p>};</p>
+<p>usb_phy0: usb_phy&#64;0 {</p>
+<p>compatible = “ulpi-phy”;</p>
+<p>#phy-cells = &lt;0&gt;;</p>
+<p>reg = &lt;0xe0002000 0x1000&gt;;</p>
+<p>view-port = &lt;0x0170&gt;;</p>
+<p>drv-vbus;</p>
+<p>};</p>
+<p>};</p>
+<p>&amp;i2c0 {</p>
+<p>clock-frequency = &lt;100000&gt;;</p>
+<p>};</p>
+<p>&amp;usb0 {</p>
+<p>dr_mode = “host”;</p>
+<p>usb-phy = &lt;&amp;usb_phy0&gt;;</p>
+<p>};</p>
+<p>&amp;sdhci0 {</p>
+<p>u-boot,dm-pre-reloc;</p>
+<p>};</p>
+<p>&amp;uart1 {</p>
+<p>u-boot,dm-pre-reloc;</p>
+<p>};</p>
+<p>&amp;flash0 {</p>
+<p>compatible = “micron,m25p80”, “w25q256”, “spi-flash”;</p>
+<p>};</p>
+<p>&amp;gem0 {</p>
+<p>phy-handle = &lt;&amp;ethernet_phy&gt;;</p>
+<p>ethernet_phy: ethernet-phy&#64;1 {</p>
+<p>reg = &lt;1&gt;;</p>
+<p>device_type = “ethernet-phy”;</p>
+<p>};</p>
+<p>};</p>
+<p>&amp;amba_pl {</p>
+<p>digilent_hdmi {</p>
+<p>compatible = “digilent,hdmi”;</p>
+<p>clocks = &lt;&amp;axi_dynclk_0&gt;;</p>
+<p>clock-names = “clk”;</p>
+<p>digilent,edid-i2c = &lt;&amp;i2c0&gt;;</p>
+<p>digilent,fmax = &lt;150000&gt;;</p>
+<p>port&#64;0 {</p>
+<p>#address-cells = &lt;1&gt;;</p>
+<p>#size-cells = &lt;0&gt;;</p>
+<p>hdmi_ep: endpoint {</p>
+<p>remote-endpoint = &lt;&amp;pl_disp_ep&gt;;</p>
+<p>};</p>
+<p>};</p>
+<p>};</p>
+<p>xlnx_pl_disp {</p>
+<p>compatible = “xlnx,pl-disp”;</p>
+<p>dmas = &lt;&amp;axi_vdma_0 0&gt;;</p>
+<p>dma-names = “dma0”;</p>
+<p>xlnx,vformat = “RG24”;</p>
+<p>xlnx,bridge = &lt;&amp;v_tc_0&gt;;</p>
+<p>port&#64;0 {</p>
+<p>reg = &lt;0&gt;;</p>
+<p>pl_disp_ep: endpoint {</p>
+<p>remote-endpoint = &lt;&amp;hdmi_ep&gt;;</p>
+<p>};</p>
+<p>};</p>
+<p>};</p>
+<p>};</p>
+<p>&amp;axi_dynclk_0 {</p>
+<p>compatible = “dglnt,axi-dynclk”;</p>
+<p>#clock-cells = &lt;0&gt;;</p>
+<p>clocks = &lt;&amp;clkc 15&gt;;</p>
+<p>};</p>
+<p>&amp;v_tc_0 {</p>
+<p>compatible = “xlnx,bridge-v-tc-6.1”;</p>
+<p>xlnx,pixels-per-clock = &lt;1&gt;;</p>
+<p>};</p>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h2>编译测试Petalinux工程<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>使用下面命令配置编译uboot、内核、根文件系统、设备树等。</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>petalinux-build</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/image1221.png" src="../_images/image1221.png" />
+<ol class="arabic simple" start="2">
+<li><p>运行下面命令生成BOOT文件，注意空格和短线</p></li>
+</ol>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p>petalinux-package –boot –fsbl ./images/linux/zynq_fsbl.elf –fpga
+–u-boot –force</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple" start="3">
+<li><p>把BOOT.bin，iamge.ub和boot.scr复制到sd中，设置开发板sd模式启动，插上HDMI显示器，启动开发板。</p></li>
+</ol>
+<img alt="../_images/image1318.png" src="../_images/image1318.png" />
+<ol class="arabic simple" start="4">
+<li><p>显示器会显示出如下内容</p></li>
+</ol>
+<img alt="../_images/image1417.png" src="../_images/image1417.png" />
+</section>
+<section id="id3">
+<h2>常见问题<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h2>
+<section id="id4">
+<h3>如何防止系统休眠<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h3>
+<p>休眠之前运行命令</p>
+<p>echo -e “ \033[9;0]\033[?33l\033[?25h\033[?1c” &gt; /dev/tty0</p>
+<p>echo -e “ \033[9;0]\033[?33l\033[?25h\033[?1c” &gt; /dev/tty1</p>
+<p>echo -e “ \033[9;0]\033[?33l\033[?25h\033[?1c” &gt; /dev/tty</p>
+<p>echo -e “ \033[9;0]\033[?33l\033[?25h\033[?1c” &gt; /dev/console</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">Linux下GPIO实验</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">使用Debian桌面系统</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petalinux">Petalinux配置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linux">配置Linux内核</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">修改设备树</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">编译测试Petalinux工程</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">常见问题</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">如何防止系统休眠</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

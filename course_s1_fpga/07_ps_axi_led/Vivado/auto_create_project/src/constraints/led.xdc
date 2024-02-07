@@ -1,0 +1,8 @@
+set_property IOSTANDARD LVCMOS15 [get_ports {leds_tri_o[0]}]
+set_property IOSTANDARD LVCMOS15 [get_ports {leds_tri_o[1]}]
+set_property IOSTANDARD LVCMOS15 [get_ports {leds_tri_o[2]}]
+set_property IOSTANDARD LVCMOS15 [get_ports {leds_tri_o[3]}]
+set_property PACKAGE_PIN F5 [get_ports {leds_tri_o[0]}]
+set_property PACKAGE_PIN E5 [get_ports {leds_tri_o[1]}]
+set_property PACKAGE_PIN G5 [get_ports {leds_tri_o[2]}]
+set_property PACKAGE_PIN G6 [get_ports {leds_tri_o[3]}]

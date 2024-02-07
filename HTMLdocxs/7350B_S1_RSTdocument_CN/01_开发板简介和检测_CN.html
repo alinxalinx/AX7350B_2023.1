@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>开发板简介和检测 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/01_开发板简介和检测_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="ZYNQ简介" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html" />
+    <link rel="prev" title="序" href="00_%E5%BA%8F_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/01_开发板简介和检测_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>开发板简介和检测</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">开发板简介</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">开发板检测</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">检测需要自备的工具</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">开发板线缆连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">开始测试</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">软件包说明</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="id1">
+<h1>开发板简介和检测<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h1>
+<section id="id2">
+<h2>开发板简介<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<p>在这里，对这款AX7350 ZYNQ开发平台进行简单的功能介绍。</p>
+<p>开发板主要由ZYNQ7350主芯片，4个DDR3，1片eMMC，1个QSPI
+FLASH和一些外设接口组成。ZYNQ7350采用Xilinx公司的Zynq7000系列的芯片，型号为XC7Z035-2FFG676。ZYNQ7035芯片可分成处理器系统部分Processor
+System（PS）和可编程逻辑部分Programmable
+Logic（PL）。在ZYNQ7350芯片的PS端和PL端分别挂了2片DDR3，每片DDR3容量高达512M字节，使得ARM系统和FPGA系统能独立处理和存储的数据的功能。PS端的8GB
+eMMC FLASH存储芯片和256Mb的QSPI
+FLASH用来静态存储ZYNQ的操作系统、文件系统及用户数据。</p>
+<p>AX7350开发板扩展了丰富的外围接口，其中包含1个PCIex4插槽、2路光纤接口、2路千兆以太网接口、4路USB2.0
+HOST接口、1路HDMI输出接口，1路UART串口接口、1路SD卡接口、1个FMC扩展接口和一些按键LED。</p>
+<p>下图为整个开发系统的结构示意图：</p>
+<img alt="../_images/image1.png" src="../_images/image1.png" />
+<p>通过这个示意图，我们可以看到，我们这个开发平台所能含有的接口和功能。</p>
+<ul class="simple">
+<li><p>Xilinx ARM+FPGA芯片Zynq-7000 XC7Z035-2FFG676。</p></li>
+<li><p>DDR3</p></li>
+</ul>
+<p>带有四片大容量的512M字节（共2GB）高速DDR3
+SDRAM。其中两片挂载在PS端，可作为ZYNQ芯片数据的缓存，也可以作为操作系统运行的内存;
+另外两片挂在PL端，可作为FPGA的数据存储，图像分析缓存，数据处理。</p>
+<ul class="simple">
+<li><p>eMMC</p></li>
+</ul>
+<p>PS端挂载一片8GB eMMC
+FLASH存储芯片，用户存储操作系统文件或者其他用户数据。</p>
+<ul class="simple">
+<li><p>QSPI FLASH</p></li>
+</ul>
+<p>一片256Mbit的QSPI FLASH存储芯片,
+可用作ZYNQ芯片的Uboot文件，系统文件和用户数据的存储;</p>
+<ul class="simple">
+<li><p>PCIe x4接口</p></li>
+</ul>
+<p>一路标准的PCIEx8的主机插槽用于PCIEx4通信, 可用于连接PCIEx4, x2,
+x1的PCIE板卡，实现PCIE数据通信。支持PCI Express
+2.0标准，单通道通信速率可高达5GBaud。</p>
+<ul class="simple">
+<li><p>2路SFP光纤接口</p></li>
+</ul>
+<p>ZYNQ的GTX收发器的2路高速收发器连接到2个光模块的发送和接收，实现2路高速的光纤通信接口。每路的光纤数据通信接收和发送的速度高达10Gb/s。</p>
+<ul class="simple">
+<li><p>千兆以太网接口</p></li>
+</ul>
+<p>2路10/100M/1000M以太网RJ45接口，用于和电脑或其它网络设备进行以太网数据交换。网络接口芯片采用Micrel公司的KSZ9031工业级GPHY芯片，1路以太网连接到ZYNQ芯片的PS端，1路以太网连接到ZYNQ芯片的PL端。</p>
+<ul class="simple">
+<li><p>HDMI视频输出</p></li>
+</ul>
+<p>1路HDMI视频输出接口，我们选用了Silion Image公司的SIL9134
+HDMI编码芯片，最高支持1080P&#64;60Hz输出，支持3D输出。</p>
+<ul class="simple">
+<li><p>USB2.0 HOST接口</p></li>
+</ul>
+<p>通过USB Hub芯片扩展4路USB
+HOST接口，用于连接外部的USB从设备，比如连接鼠标，键盘，U盘等等。USB接口采用扁型USB接口(USB
+Type A)。</p>
+<ul class="simple">
+<li><p>USB Uart接口</p></li>
+</ul>
+<p>2路Uart转USB接口，用于和电脑通信，方便用户调试。1路在核心板上，核心板独立工作是使用，1路在底板上，
+整板调试时使用。串口芯片采用Silicon Labs CP2102GM的USB-UAR芯片,
+USB接口采用MINI USB接口。</p>
+<ul class="simple">
+<li><p>Micro SD卡座</p></li>
+</ul>
+<p>1路Micro SD卡座，用于存储操作系统镜像和文件系统。</p>
+<ul class="simple">
+<li><p>FMC扩展口</p></li>
+</ul>
+<p>1个标准的FMC
+LPC的扩展口，可以外接XILINX或者我们黑金的各种FMC模块（HDMI输入输出模块，双目摄像头模块，高速AD模块等等）。FMC扩展口包含33对差分IO信号和一路高速GTX收发信号。</p>
+<ul class="simple">
+<li><p>USB JTAG口</p></li>
+</ul>
+<p>一路USB JTAG口，通过USB线及板载的JTAG电路对ZYNQ系统进行调试和下载</p>
+<ul class="simple">
+<li><p>时钟</p></li>
+</ul>
+<p>板载一个33.333Mhz的有源晶振，给PS系统提供稳定的时钟源，一个50MHz的有源晶振，为PL逻辑提供额外的时钟；另外板上有一个可编程的时钟芯片给GTX提供时钟源，为PCIE，光纤和DDR工作提供参考时钟。</p>
+<ul class="simple">
+<li><p>LED灯</p></li>
+</ul>
+<p>9个发光二极管LED,
+1个电源指示灯；1个DONE配置指示灯；2个串口通信指示灯，1个PS控制LED灯，4个PL控制指示灯。</p>
+<ul class="simple">
+<li><p>按键</p></li>
+</ul>
+<p>6个按键，1个复位按键，1个PS用户按键，4个PL用户按键。</p>
+</section>
+<section id="id3">
+<h2>开发板检测<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h2>
+<p>拿到开发板，大部分人都想立即体验一下，看看开发板是否正常工作，下面我们介绍如何对开发板进行一个简单的检测。</p>
+<section id="id4">
+<h3>检测需要自备的工具<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>电脑</p></li>
+</ol>
+<img alt="../_images/image2.png" src="../_images/image2.png" />
+<ol class="arabic simple" start="2">
+<li><p>支持HDMI的显示器，要求分辨率不小于1920x1080</p></li>
+</ol>
+<img alt="../_images/image3.png" src="../_images/image3.png" />
+<ol class="arabic simple" start="3">
+<li><p>HDMI线缆2条</p></li>
+</ol>
+<img alt="../_images/image4.png" src="../_images/image4.png" />
+<ol class="arabic simple" start="4">
+<li><p>USB鼠标键盘</p></li>
+</ol>
+<img alt="../_images/image5.png" src="../_images/image5.png" />
+<ol class="arabic simple" start="5">
+<li><p>路由器，为了测试网络，最好能连接互联网，支持DHCP。</p></li>
+</ol>
+<img alt="../_images/image6.png" src="../_images/image6.png" />
+<ol class="arabic simple" start="6">
+<li><p>网线</p></li>
+</ol>
+<img alt="../_images/image7.png" src="../_images/image7.png" />
+</section>
+<section id="id5">
+<h3>开发板线缆连接<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>连接HDMI显示器</p></li>
+</ol>
+<img alt="../_images/image8.png" src="../_images/image8.png" />
+<ol class="arabic simple" start="2">
+<li><p>连接usb转串口，主要用于看ARM打印出的一些信息</p></li>
+<li><p>连接ARM端网口（ETH1）到路由器</p></li>
+<li><p>连接电源</p></li>
+</ol>
+</section>
+<section id="id6">
+<h3>开始测试<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>测试前我们需要安装USB转串口的驱动软件（软件/CP210x_Windows_Drivers.zip），不然无法做串口通信测试，双击exe文件进行驱动安装。驱动安装好以后，用红色USB线连接电脑USB口和开发板上的UART口(J1)进行连接,
+然后打开电脑的设备管理器，设备管理器能够找到串口设备CP210x,
+我机器上映射的是COM3。如果不能成功安装驱动，可以尝试使用驱动精灵安装。</p></li>
+</ol>
+<img alt="../_images/image9.png" src="../_images/image9.png" />
+<img alt="../_images/image10.png" src="../_images/image10.png" />
+<img alt="../_images/image11.png" src="../_images/image11.png" />
+<ol class="arabic simple" start="2">
+<li><p>终端工具有很多，例如putty，teraterm,
+Windows自带终端工具，SecureCRT等等，众多终端工具中，比较下来，还是putty最好用，资料（软件/
+putty.exe）为大家准备了绿色免安装的putty软件。</p></li>
+<li><p>选择Serial，Serial
+line填写COM3，Speed填写115200，COM3串口号根据设备管理器里显示的填写</p></li>
+</ol>
+<img alt="../_images/image12.png" src="../_images/image12.png" />
+<p>选择Serial，并将流控Flow control改为None，点击“Open”</p>
+<img alt="../_images/image13.png" src="../_images/image13.png" />
+<img alt="../_images/image14.png" src="../_images/image14.png" />
+<p>启动后界面</p>
+<ol class="arabic simple" start="4">
+<li><p>确定开发板启动模式是否为SD启动模式（默认出厂时开发板的SD卡插槽里有卡，启动模式默认也是SD卡），拨动拨码开关时用一个带尖端的工具，例如，镊子，取卡针等，轻轻拨动。</p></li>
+<li><p>打开开发板上的电源开关，PuTTY工具窗口会显示u-boot和Linux系统的启动信息。</p></li>
+</ol>
+<img alt="../_images/image15.png" src="../_images/image15.png" />
+<ol class="arabic simple" start="6">
+<li><p>可以在串口终端登陆系统，用户: root，密码: root</p></li>
+</ol>
+<img alt="../_images/image16.png" src="../_images/image16.png" />
+<ol class="arabic simple" start="7">
+<li><p>启动完成后连接开发板HDMI显示器会显示Debian的桌面。</p></li>
+</ol>
+<img alt="../_images/image17.png" src="../_images/image17.png" />
+<ol class="arabic simple" start="8">
+<li><p>这时可以使用连接到鼠标和键盘来操作了，用鼠标双击Web浏览器，启动浏览器时间较长，请耐心等待。</p></li>
+</ol>
+<img alt="../_images/image18.png" src="../_images/image18.png" />
+<ol class="arabic simple" start="9">
+<li><p>地址栏输入网址，我们这里输入黑金动力社区的网址。正常打开，我们的开发板已经能正常上网了。</p></li>
+</ol>
+<img alt="../_images/image19.png" src="../_images/image19.png" />
+<ol class="arabic simple" start="10">
+<li><p>开发板的简单检测到此结束。</p></li>
+</ol>
+<p>为了您方便找到教程中所用到的软件、源码包、驱动等，下面会介绍一下软件包里主要内容，教程中难免有疏漏之处，找不到时麻烦您搜索一下您的电脑。</p>
+</section>
+</section>
+<section id="id7">
+<h2>软件包说明<a class="headerlink" href="#id7" title="此标题的永久链接">#</a></h2>
+<img alt="../_images/image20.png" src="../_images/image20.png" />
+<ol class="arabic simple">
+<li><p>CP210x_Windows_Drivers.zip 串口驱动</p></li>
+<li><p><strong>Xilinx_Unified_2023.1_0507_1903.tar.gz</strong> Vivado
+2023.1安装包，Windows和Linux通用版本，Windows下需要WinRAR解压软件。</p></li>
+<li><p>petalinux-v2023.1-final-installer.run petalinux安装包</p></li>
+<li><p>qt-opensource-windows-x86-mingw530-5.7.1.exe Windows版本QT</p></li>
+<li><p>qt-opensource-linux-x64-5.7.1.run Linux版本QT</p></li>
+<li><p>imageUSB.exe 镜像恢复工具</p></li>
+<li><p>00_resource内包含Linux源代码、根文件系统</p></li>
+<li><p>VMware-workstation-full-12.1.1-3770994.exe 虚拟机安装包</p></li>
+</ol>
+<p>ubuntu-16.04.3-desktop-amd64.iso
+Ubuntu安装包，只能装在PC上，不能装开发板</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="00_%E5%BA%8F_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">序</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">ZYNQ简介</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">开发板简介</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">开发板检测</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">检测需要自备的工具</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">开发板线缆连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">开始测试</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">软件包说明</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

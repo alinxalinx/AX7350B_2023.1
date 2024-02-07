@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>PS点亮PL的LED灯 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/10_PS点亮PL的LED灯_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="PS定时器中断实验" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html" />
+    <link rel="prev" title="体验ARM，裸机输出“Hello World”" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_PCIe%20ROOT%E6%9E%9A%E4%B8%BE%E6%B5%8B%E8%AF%95_CN.html">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/10_PS点亮PL的LED灯_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PS点亮PL的LED灯</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xdcpl">XDC文件约束PL管脚</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis程序编写</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">下载调试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">实验总结</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="psplled">
+<h1>PS点亮PL的LED灯<a class="headerlink" href="#psplled" title="此标题的永久链接">#</a></h1>
+<p><strong>实验VIvado工程为“ps_axi_led”。</strong></p>
+<p>使用zynq最大的疑问就是如何把PS和PL结合起来使用，在其他的SOC芯片中一般都会有GPIO，本实验使用一个AXI
+GPIO的IP核，让PS端通过AXI总线控制PL端的LED灯，实验虽然简单，不过可以让我们了解PL和PS是如何结合的。</p>
+<section id="vivado">
+<h2>Vivado工程建立<a class="headerlink" href="#vivado" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>建立一个名为“ps_axi_led”Vivado工程，表示PS通过AXI总线控制LED灯</p></li>
+<li><p>创建一个Block设计</p></li>
+</ol>
+<img alt="../_images/image128.png" src="../_images/image128.png" />
+<ol class="arabic simple" start="3">
+<li><p>添加ZYNQ处理器</p></li>
+</ol>
+<img alt="../_images/image218.png" src="../_images/image218.png" />
+<ol class="arabic simple" start="4">
+<li><p>配置Bank电平标准，使能串口</p></li>
+</ol>
+<img alt="../_images/image315.png" src="../_images/image315.png" />
+<ol class="arabic simple" start="5">
+<li><p>配置DDR3型号为“MT41J256M16 RE-125”</p></li>
+</ol>
+<img alt="../_images/image410.png" src="../_images/image410.png" />
+<ol class="arabic simple" start="6">
+<li><p>添加一个AXI GPIO的IP 核</p></li>
+</ol>
+<img alt="../_images/image59.png" src="../_images/image59.png" />
+<ol class="arabic simple" start="7">
+<li><p>双击刚才添加的“axi_gpio_0”配置参数</p></li>
+</ol>
+<img alt="../_images/image68.png" src="../_images/image68.png" />
+<ol class="arabic simple" start="8">
+<li><p>选择“All Outputs”，因为这里控制LED，只要输出就可以了，“GPIO
+Width”填4，控制4颗LED，点击OK</p></li>
+</ol>
+<img alt="../_images/image78.png" src="../_images/image78.png" />
+<ol class="arabic simple" start="9">
+<li><p>点击“Run Connection Automation”，可以完成部分自动连线</p></li>
+</ol>
+<img alt="../_images/image88.png" src="../_images/image88.png" />
+<ol class="arabic simple" start="10">
+<li><p>选择要自动连接的端口，这里全选，点击OK</p></li>
+</ol>
+<img alt="../_images/image98.png" src="../_images/image98.png" />
+<ol class="arabic simple" start="11">
+<li><p>点击“Run Block Automation”</p></li>
+</ol>
+<img alt="../_images/image108.png" src="../_images/image108.png" />
+<ol class="arabic simple" start="12">
+<li><p>点击“OK”</p></li>
+</ol>
+<img alt="../_images/image1113.png" src="../_images/image1113.png" />
+<ol class="arabic simple" start="13">
+<li><p>点击“Optimize Routing”，可以优化布局</p></li>
+</ol>
+<img alt="../_images/image129.png" src="../_images/image129.png" />
+<ol class="arabic simple" start="14">
+<li><p>修改GPIO端口的名称</p></li>
+</ol>
+<img alt="../_images/image136.png" src="../_images/image136.png" />
+<ol class="arabic simple" start="15">
+<li><p>名称修改为leds</p></li>
+</ol>
+<img alt="../_images/image146.png" src="../_images/image146.png" />
+<ol class="arabic simple" start="16">
+<li><p>创建HDL文件</p></li>
+</ol>
+<img alt="../_images/image155.png" src="../_images/image155.png" />
+<ol class="arabic simple" start="17">
+<li><p>点击“OK”</p></li>
+</ol>
+<img alt="../_images/image164.png" src="../_images/image164.png" />
+<ol class="arabic simple" start="18">
+<li><p>在生成的Verilog文件中，可以看到有个“leds_tri_o”的输出端口，要为他们分配管脚</p></li>
+</ol>
+<img alt="../_images/image174.png" src="../_images/image174.png" />
+</section>
+<section id="xdcpl">
+<h2>XDC文件约束PL管脚<a class="headerlink" href="#xdcpl" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>创建一个新的xdc约束文件</p></li>
+</ol>
+<img alt="../_images/image184.png" src="../_images/image184.png" />
+<ol class="arabic simple" start="2">
+<li><p>文件名称为led</p></li>
+</ol>
+<img alt="../_images/image194.png" src="../_images/image194.png" />
+<ol class="arabic simple" start="3">
+<li><p>led.xdc添加一下内容，端口名称一定要和顶层文件端口一致</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">0</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">2</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS15</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">3</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">F5</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">0</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">E5</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">G5</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">2</span><span class="p">]}]</span>
+<span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">G6</span> <span class="p">[</span><span class="n">get_ports</span> <span class="p">{</span><span class="n">leds_tri_o</span><span class="p">[</span><span class="mi">3</span><span class="p">]}]</span>
+</pre></div>
+</div>
+</section>
+<section id="vitis">
+<h2>Vitis程序编写<a class="headerlink" href="#vitis" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>生成bit文件</p></li>
+</ol>
+<img alt="../_images/image204.png" src="../_images/image204.png" />
+<ol class="arabic simple" start="2">
+<li><p>导出硬件</p></li>
+</ol>
+<img alt="../_images/image219.png" src="../_images/image219.png" />
+<ol class="arabic simple" start="3">
+<li><p>因为要用到PL，所以选择“Include bitstream”，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image224.png" src="../_images/image224.png" />
+<ol class="arabic simple" start="4">
+<li><p>运行Vitis</p></li>
+</ol>
+<img alt="../_images/image234.png" src="../_images/image234.png" />
+<ol class="arabic simple" start="5">
+<li><p>与前面的Hello World实验不同，我们只建立Platform工程</p></li>
+</ol>
+<img alt="../_images/image243.png" src="../_images/image243.png" />
+<ol class="arabic simple" start="6">
+<li><p>填入工程名字，点击Next</p></li>
+</ol>
+<img alt="../_images/image252.png" src="../_images/image252.png" />
+<ol class="arabic simple" start="7">
+<li><p>点击“Create a new platform
+hardware(XSA)，软件已经提供了一些板卡的硬件平台，但对于</p></li>
+<li><p>我们自己的硬件平台，可以选择browse</p></li>
+</ol>
+<img alt="../_images/image262.png" src="../_images/image262.png" />
+<ol class="arabic simple" start="9">
+<li><p>选择XSA文件</p></li>
+</ol>
+<img alt="../_images/image272.png" src="../_images/image272.png" />
+<p>保持默认，点击Finish</p>
+<img alt="../_images/image282.png" src="../_images/image282.png" />
+<ol class="arabic simple" start="10">
+<li><p>面对一个不熟悉AXI
+GPIO，我们如何控制呢？我们可以尝试一下Vitis自带的例程</p></li>
+<li><p>点开platform.spr，并点开BSP</p></li>
+</ol>
+<img alt="../_images/image292.png" src="../_images/image292.png" />
+<ol class="arabic simple" start="12">
+<li><p>找到“axi_gpio_0”,这里可以点击“Documentation”来看相关文档，这里就不演示，点击“Import
+Examples”</p></li>
+</ol>
+<img alt="../_images/image302.png" src="../_images/image302.png" />
+<ol class="arabic simple" start="13">
+<li><p>在弹出的对话框中有多个例程，从名称中可以猜个大概，这里选第一个“xgpio_example”</p></li>
+</ol>
+<img alt="../_images/image316.png" src="../_images/image316.png" />
+<ol class="arabic simple" start="14">
+<li><p>可以看到例程比较简单，短短几行代码，完成了AXI GPIO的操作</p></li>
+</ol>
+<img alt="../_images/image323.png" src="../_images/image323.png" />
+<p>里面用到很多GPIO相关的API函数，通过文档可以了解详细，也可以选中该函数，按“F3”查看具体定义。如果有了这些信息你还不能理解如何使用AXI
+GPIO，说明你需要补充C语言基础。</p>
+</section>
+<section id="id1">
+<h2>下载调试<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>虽然Vitis可以提供一些例程，但有一部分例程是需要自己修改的，这个简单的LED例程就不修改了，尝试运行一下，发现不能达到预期效果，甚至提示一些错误。</p></li>
+</ol>
+<img alt="../_images/image333.png" src="../_images/image333.png" />
+<ol class="arabic simple" start="2">
+<li><p>前面的教程已经提到，“Run As”最好复位系统，有PL的设计要“Program
+FPGA”，如果你的PL多次修改，别忘了重新导出硬件。按照下图配置后再次运行，可以看到开发板LED1快速闪烁。</p></li>
+</ol>
+<img alt="../_images/image342.png" src="../_images/image342.png" />
+<ol class="arabic simple" start="3">
+<li><p>修改代码让4个LED灯都闪烁</p></li>
+</ol>
+<img alt="../_images/image352.png" src="../_images/image352.png" />
+</section>
+<section id="id2">
+<h2>实验总结<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h2>
+<p>通过实验我们了解到PS可以通过AXI总线控制PL，但视乎没有体现出ZYNQ的优势，因为对于控制LED灯，无论是ARM还是FPGA，都可以轻松完成，但是如果把LED换成串口呢，控制100路串口通信，8路以太网等应用，我想还没有哪个SOC能完成这种功能，只有ZYNQ可以，这就是ZYNQ和普通SOC的不同之处。</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">体验ARM，裸机输出“Hello World”</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">PS定时器中断实验</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xdcpl">XDC文件约束PL管脚</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis程序编写</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">下载调试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">实验总结</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

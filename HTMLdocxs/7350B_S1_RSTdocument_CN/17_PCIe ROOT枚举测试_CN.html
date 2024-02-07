@@ -1,0 +1,957 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>PCIe ROOT枚举测试 &#8212; ZYNQ 7000开发平台FPGA教程 1.0 文档</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '7350B_S1_RSTdocument_CN/17_PCIe ROOT枚举测试_CN';</script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="安装虚拟机和Ubuntu系统" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html" />
+    <link rel="prev" title="固化程序" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="zh-CN"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/8.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/8.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    ZYNQ 7000 开发平台
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">公司简介</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%85%B3%E4%BA%8EALINX_CN.html">关于ALINX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="00_%E5%BA%8F_CN.html">序</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">AX7350B型号板卡S1_FPGA教程</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%80%E4%BB%8B%E5%92%8C%E6%A3%80%E6%B5%8B_CN.html">开发板简介和检测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_ZYNQ%E7%AE%80%E4%BB%8B_CN.html">ZYNQ简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_Vivado%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_CN.html">Vivado开发环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_PL%E7%9A%84LED%E5%AE%9E%E9%AA%8C_CN.html">PL的“Hello World”LED实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_HDMI%E8%BE%93%E5%87%BA%E5%AE%9E%E9%AA%8C_CN.html">HDMI输出实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%97%B6%E9%92%9FSI5338%E5%AE%9E%E9%AA%8C_CN.html">可编程时钟SI5338实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_PL%E7%AB%AFDDR3%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C_CN.html">PL端DDR3读写测试实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_GTX%E6%94%B6%E5%8F%91%E5%99%A8%E8%AF%AF%E7%A0%81%E7%8E%87%E6%B5%8B%E8%AF%95IBERT%E5%AE%9E%E9%AA%8C_CN.html">GTX收发器误码率测试IBERT实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_%E4%BD%93%E9%AA%8CARM%E8%BE%93%E5%87%BAHello%20World_CN.html">体验ARM，裸机输出“Hello World”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_PS%E7%82%B9%E4%BA%AEPL%E7%9A%84LED%E7%81%AF_CN.html">PS点亮PL的LED灯</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_PS%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PS定时器中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_PL%E6%8C%89%E9%94%AE%E4%B8%AD%E6%96%AD%E5%AE%9E%E9%AA%8C_CN.html">PL按键中断实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%AE%9E%E9%AA%8C_CN.html">以太网实验（LWIP）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AE%9E%E9%AA%8C_CN.html">自定义IP实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_%E4%BD%BF%E7%94%A8VDMA%E9%A9%B1%E5%8A%A8HDMI%E6%98%BE%E7%A4%BA_CN.html">使用VDMA驱动HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html">固化程序</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PCIe ROOT枚举测试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html">安装虚拟机和Ubuntu系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="19_Ubuntu%E5%AE%89%E8%A3%85Linux%E7%89%88Vitis%E8%BD%AF%E4%BB%B6_CN.html">Ubuntu安装Linux版Vitis软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_Petalinux%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85_CN.html">Petalinux工具安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="21_NFS%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85_CN.html">NFS服务软件安装</a></li>
+<li class="toctree-l1"><a class="reference internal" href="22_%E4%BD%BF%E7%94%A8Petalinux%E5%AE%9A%E5%88%B6Linux%E7%B3%BB%E7%BB%9F_CN.html">使用Petalinux定制Linux系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="23_%E4%BD%BF%E7%94%A8Vitis%E5%BC%80%E5%8F%91Linux%E7%A8%8B%E5%BA%8F_CN.html">使用Vitis开发Linux程序</a></li>
+<li class="toctree-l1"><a class="reference internal" href="24_Linux%E4%B8%8BGPIO%E5%AE%9E%E9%AA%8C_CN.html">Linux下GPIO实验</a></li>
+<li class="toctree-l1"><a class="reference internal" href="25_Petalinux%E4%B8%8B%E7%9A%84HDMI%E6%98%BE%E7%A4%BA_CN.html">Petalinux下的HDMI显示</a></li>
+<li class="toctree-l1"><a class="reference internal" href="26_%E4%BD%BF%E7%94%A8Debian%E6%A1%8C%E9%9D%A2%E7%B3%BB%E7%BB%9F_CN.html">使用Debian桌面系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="27_PCIe%20SSD%E5%BA%94%E7%94%A8_CN.html">PCIe SSD应用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="28_%E5%88%B6%E4%BD%9CQSPI%20Flash%E5%90%AF%E5%8A%A8%E7%9A%84Linux_CN.html">制作QSPI Flash启动的Linux</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Alinx版权</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="00_%E8%B4%A3%E4%BB%BB%E5%A3%B0%E6%98%8E_CN.html">版权说明</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/alinxalinx/AX7350B_2023.1" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="源码库"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="下载此页面">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/7350B_S1_RSTdocument_CN/17_PCIe ROOT枚举测试_CN.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="下载源文件"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="列印成 PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="全屏模式"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="搜索" aria-label="搜索" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>PCIe ROOT枚举测试</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> 目录 </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">创建新工程</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#block">创建block设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axi-mm-to-pcie-bridge">添加AXI MM to PCIe bridge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">添加复位模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dma">添加DMA模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">连接中断</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axi">添加AXI互联模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">连接时钟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">连接复位信号</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">其他连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">端口设置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">地址分配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hdl">创建HDL封装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xdc">添加xdc约束</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">关键步骤</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis下载调试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">实验总结</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="pcie-root">
+<h1>PCIe ROOT枚举测试<a class="headerlink" href="#pcie-root" title="此标题的永久链接">#</a></h1>
+<p><strong>实验VIvado工程为“pcie_root”。</strong></p>
+<section id="vivado">
+<h2>Vivado工程建立<a class="headerlink" href="#vivado" title="此标题的永久链接">#</a></h2>
+<section id="id1">
+<h3>创建新工程<a class="headerlink" href="#id1" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>新建一个工程名称为“pcie_root”,选择新建一个文件夹，点击“Next”</p></li>
+</ol>
+<img alt="../_images/image180.png" src="../_images/image180.png" />
+<ol class="arabic simple" start="2">
+<li><p>工程类型选择“RTL Project”，同时选择“Do not specify sources at this
+time”，点击“Next”</p></li>
+</ol>
+<img alt="../_images/image240.png" src="../_images/image240.png" />
+<ol class="arabic simple" start="3">
+<li><p>“Parts”器件家族（Family）选择“Zynq-7000”，封装（Package）选择“ffg676”，然后选择“xc7z035ffg676-2”，点击“Next”</p></li>
+</ol>
+<img alt="../_images/image329.png" src="../_images/image329.png" />
+<ol class="arabic simple" start="4">
+<li><p>点击“Finish”完成工程向导</p></li>
+</ol>
+</section>
+<section id="block">
+<h3>创建block设计<a class="headerlink" href="#block" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>从Vivado流程导航窗口中点击“Create Block Design”</p></li>
+</ol>
+<img alt="../_images/image420.png" src="../_images/image420.png" />
+<ol class="arabic simple" start="2">
+<li><p>给Block设计起名名字，这里保持“design_1”的默认名称，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image517.png" src="../_images/image517.png" />
+<ol class="arabic simple" start="3">
+<li><p>空白设计打开后，点击“Add IP”图标，在IP仓库中选择双击“ZYNQ7 Processing
+System”</p></li>
+</ol>
+<img alt="../_images/image615.png" src="../_images/image615.png" />
+<ol class="arabic simple" start="4">
+<li><p>ZYNQ PS block被添加到block设计中，点击“Run Block
+Automation”来配置目标硬件</p></li>
+</ol>
+<img alt="../_images/image715.png" src="../_images/image715.png" />
+<ol class="arabic simple" start="5">
+<li><p>用默认设置，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image815.png" src="../_images/image815.png" />
+<ol class="arabic simple" start="6">
+<li><p>双击“processing_system7_0”配置ZYNQ PS</p></li>
+<li><p>在“PS-PL Configuration”选项卡中，使能HP Slave AXI接口“S AXI HP0
+interface”，HP端口可以让外部AXI Master接口高性能访问ZYNQ PS
+ddr3内存。</p></li>
+</ol>
+<img alt="../_images/image915.png" src="../_images/image915.png" />
+<ol class="arabic simple" start="8">
+<li><p>在“Peripheral I/O Pins”选项中配置Bnak 1电平标准为“LVCMOS
+1.8V”，使能Quad SPI
+Flash，IO使用MIO1-MIO6，使能UART1，IO使用MIO12-MIO13</p></li>
+</ol>
+<img alt="../_images/image1015.png" src="../_images/image1015.png" />
+<ol class="arabic simple" start="9">
+<li><p>使能Ethernet 0，IO使用MIO16-MIO27，使能USB0，IO使用MIO28-MIO39,</p></li>
+</ol>
+<img alt="../_images/image1120.png" src="../_images/image1120.png" />
+<ol class="arabic simple" start="10">
+<li><p>使能Ethernet 0的MDIO，IO使用MIO52-MIO53，使能SD
+0，IO使用MIO40-MIO45，使能SD 1，IO使用MIO47-MIO51，使能I2C
+0，IO通过PL扩展，选择EMIO</p></li>
+</ol>
+<img alt="../_images/image1216.png" src="../_images/image1216.png" />
+<ol class="arabic simple" start="11">
+<li><p>SD 0的Card Detect选择MIO 10</p></li>
+</ol>
+<img alt="../_images/image1314.png" src="../_images/image1314.png" />
+<ol class="arabic simple" start="12">
+<li><p>使能GPIO MIO，选择Ethernet PHY Reset为MIO7，USB PHY Reset为MIO8</p></li>
+</ol>
+<img alt="../_images/image1413.png" src="../_images/image1413.png" />
+<ol class="arabic simple" start="13">
+<li><p>在DDR Configuration选择中选择Memory Part为“MT41J256M16 RE-125”</p></li>
+</ol>
+<img alt="../_images/image1512.png" src="../_images/image1512.png" />
+<ol class="arabic simple" start="14">
+<li><p>在Interrupts选项中使能“Fabric
+Interrupts”，再使能IRQ_F2Q[15:0]，点击OK完成配置</p></li>
+</ol>
+<img alt="../_images/image1611.png" src="../_images/image1611.png" />
+</section>
+<section id="axi-mm-to-pcie-bridge">
+<h3>添加AXI MM to PCIe bridge<a class="headerlink" href="#axi-mm-to-pcie-bridge" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>从IP 仓库添加 “AXI Memory Mapped to PCI Express” block 到设计中</p></li>
+</ol>
+<img alt="../_images/image1711.png" src="../_images/image1711.png" />
+<ol class="arabic simple" start="2">
+<li><p>双击“axi_pcie_0”配置参数</p></li>
+<li><p>在“PCIE:Basics”配置选项中，端口类型选择“Root Port of PCI Express Root
+Complex”</p></li>
+</ol>
+<img alt="../_images/image1810.png" src="../_images/image1810.png" />
+<ol class="arabic simple" start="4">
+<li><p>在“PCIE:Link Config”选项中，“Lane Width”选择X4，“Link speed”选择5
+GT/s</p></li>
+</ol>
+<img alt="../_images/image1910.png" src="../_images/image1910.png" />
+<ol class="arabic simple" start="5">
+<li><p>在 “PCIE:ID” 选项中，“Class Code”填写 0x060400.
+这是为了以后在Linux下能正确的使用驱动程序。</p></li>
+</ol>
+<img alt="../_images/image209.png" src="../_images/image209.png" />
+<ol class="arabic simple" start="6">
+<li><p>在“PCIE:BARS”项中, 设置BAR 0 类型为 “Memory” ，大小为 1
+Gigabytes，其他参数都保持默认，点击“OK”</p></li>
+</ol>
+<img alt="../_images/image2114.png" src="../_images/image2114.png" />
+<ol class="arabic simple" start="7">
+<li><p>添加一个“Utility Buffer”到 block设计</p></li>
+</ol>
+<img alt="../_images/image2212.png" src="../_images/image2212.png" />
+<ol class="arabic simple" start="8">
+<li><p>双击“util_ds_buf_0”，选择“C Buf
+Type”为“IBUFDSGTE”，这种类似是收发器专用参考差分时钟BUFFER，开发板上来自SI5338输出，频率为100Mhz</p></li>
+</ol>
+<img alt="../_images/image2310.png" src="../_images/image2310.png" />
+<ol class="arabic simple" start="9">
+<li><p>连接 utility buffer 的输出“IBUF_OUT” 到 AXI-PCIe 模块的“REFCLK”输入。</p></li>
+</ol>
+<img alt="../_images/image248.png" src="../_images/image248.png" />
+<ol class="arabic simple" start="10">
+<li><p>添加一个“Constant”模块到设计中</p></li>
+</ol>
+<img alt="../_images/image256.png" src="../_images/image256.png" />
+<ol class="arabic simple" start="11">
+<li><p>双击“Constant”配置参数Const Val修改“0”</p></li>
+</ol>
+<img alt="../_images/image266.png" src="../_images/image266.png" />
+<ol class="arabic simple" start="12">
+<li><p>把xlconstant_0输出连接到axi_pcie_0的输入INTX_MSI_Request</p></li>
+</ol>
+<img alt="../_images/image276.png" src="../_images/image276.png" />
+</section>
+<section id="id2">
+<h3>添加复位模块<a class="headerlink" href="#id2" title="此标题的永久链接">#</a></h3>
+<p>设计中有2个时钟，都是来自AXI-PCIe
+bridge模块的输出，分别为“axi_aclk_out”、“axi_ctl_aclk_out”，一个用于PCIe数据传输，一个用于模块的寄存器控制，所以要添加2个复位模块。</p>
+<ol class="arabic simple">
+<li><p>添加“Processor System Reset”到设计中，默认名称为“proc_sys_reset_0”</p></li>
+</ol>
+<img alt="../_images/image286.png" src="../_images/image286.png" />
+<ol class="arabic simple" start="2">
+<li><p>把“axi_pcie_0”模块的输出“axi_ctl_aclk_out”连接到“proc_sys_reset_0”模块的输入“slowest_sync_clk”,
+把“axi_pcie_0”模块的输出“mmcm_lock”连接到“proc_sys_reset_0”模块的输入“dcm_locked”,把模块“processing_system7_0”的输出“FCLK_RESET0_N”连接到模块“proc_sys_reset_0”的输入“ext_reset_in”。</p></li>
+</ol>
+<img alt="../_images/image296.png" src="../_images/image296.png" />
+<ol class="arabic simple" start="3">
+<li><p>添加“Processor System Reset”到设计中，默认名称为“proc_sys_reset_1”</p></li>
+<li><p>把“axi_pcie_0”模块的输出“axi_aclk_out”连接到“proc_sys_reset_1”模块的输入“slowest_sync_clk”,
+把“axi_pcie_0”模块的输出“mmcm_lock”连接到“proc_sys_reset_1”模块的输入“dcm_locked”,把模块“processing_system7_0”的输出“FCLK_RESET0_N”连接到模块“proc_sys_reset_1”的输入“ext_reset_in”。</p></li>
+</ol>
+<img alt="../_images/image306.png" src="../_images/image306.png" />
+</section>
+<section id="dma">
+<h3>添加DMA模块<a class="headerlink" href="#dma" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>添加一个“AXI Central Direct Memory Access”到设计中</p></li>
+</ol>
+<img alt="../_images/image3113.png" src="../_images/image3113.png" />
+<ol class="arabic simple" start="2">
+<li><p>双击“axi_cdma_0”打开配置窗口，“Write/Read Data
+Width”选择128，不要勾选“Enable Scatter Gather”</p></li>
+</ol>
+<img alt="../_images/image3210.png" src="../_images/image3210.png" />
+</section>
+<section id="id3">
+<h3>连接中断<a class="headerlink" href="#id3" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>添加一个“Concat”到设计中</p></li>
+</ol>
+<img alt="../_images/image337.png" src="../_images/image337.png" />
+<ol class="arabic simple" start="2">
+<li><p>连接axi_pcie_0模块的中断到xlconcat_0模块的In0端口，连接axi_cdma_0模块的中断到xlconcat_0模块的In1端口，连接xlconcat_0模式的输出dout到ZYNQ
+PS处理器IRQ_F2P端口。</p></li>
+</ol>
+<img alt="../_images/image346.png" src="../_images/image346.png" />
+</section>
+<section id="axi">
+<h3>添加AXI互联模块<a class="headerlink" href="#axi" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>添加一个“AXI
+Interconnect”模块到设计中，默认名称为“axi_interconnect_0”</p></li>
+</ol>
+<img alt="../_images/image356.png" src="../_images/image356.png" />
+<ol class="arabic simple" start="2">
+<li><p>双击“axi_interconnect_0”，配置参数修改为2个Slave端口，1个Master端口</p></li>
+</ol>
+<img alt="../_images/image365.png" src="../_images/image365.png" />
+<ol class="arabic simple" start="3">
+<li><p>连接“axi_interconnect_0”模块的M00_AXI端口到ZYNQ
+PS处理器的S_AXI_HP0端口</p></li>
+</ol>
+<img alt="../_images/image375.png" src="../_images/image375.png" />
+<ol class="arabic simple" start="4">
+<li><p>添加一个“AXI
+Interconnect”模块到设计中，默认名称为“axi_interconnect_1”</p></li>
+<li><p>双击“axi_interconnect_1”，配置参数修改为2个Slave端口，3个Master端口</p></li>
+</ol>
+<img alt="../_images/image385.png" src="../_images/image385.png" />
+<ol class="arabic simple" start="6">
+<li><p>连接 “axi_interconnect_1”模块的“M00_AXI” 端口到AXI-PCIe模块的
+“S_AXI”端口，连接 “axi_interconnect_1”模块的“M01_AXI”
+端口到AXI-PCIe模块的 “S_AXI_CTL”端口，连接
+“axi_interconnect_1”模块的“M02_AXI” 端口到CDMA模块的 “S_AXI_LITE”端口</p></li>
+</ol>
+<img alt="../_images/image395.png" src="../_images/image395.png" />
+<ol class="arabic simple" start="7">
+<li><p>添加一个“AXI
+Interconnect”模块到设计中，默认名称为“axi_interconnect_2”</p></li>
+<li><p>连接 “axi_interconnect_2”模块的“M00_AXI”端口到
+“axi_interconnect_0”模块的“S01_AXI” 端口，连接
+“axi_interconnect_2”模块的“M01_AXI”端口到
+“axi_interconnect_1”模块的“S01_AXI” 端口，连接
+“axi_interconnect_2”模块的“S00_AXI”端口到 “axi_cdma_0”模块的“M_AXI”
+端口</p></li>
+</ol>
+<img alt="../_images/image403.png" src="../_images/image403.png" />
+</section>
+<section id="id4">
+<h3>连接时钟<a class="headerlink" href="#id4" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>连接 “axi_aclk_out”时钟到Zynq PS的输入 “M_AXI_GP0_ACLK” 和
+“S_AXI_HP0_ACLK”</p></li>
+</ol>
+<img alt="../_images/image4110.png" src="../_images/image4110.png" />
+<ol class="arabic simple" start="2">
+<li><p>连接 “axi_aclk_out”时钟到“axi_cdma_0”的输入 “m_axi_aclk” 和
+“s_axi_lite_aclk”</p></li>
+</ol>
+<img alt="../_images/image424.png" src="../_images/image424.png" />
+<ol class="arabic simple" start="3">
+<li><p>连接“axi_interconnect_0”所有时钟到“axi_aclk_out”</p></li>
+</ol>
+<img alt="../_images/image433.png" src="../_images/image433.png" />
+<ol class="arabic simple" start="4">
+<li><p>连接“axi_interconnect_1”除了“M01_ACLK”的所有时钟到“axi_aclk_out”</p></li>
+</ol>
+<img alt="../_images/image443.png" src="../_images/image443.png" />
+<ol class="arabic simple" start="5">
+<li><p>连接“axi_interconnect_2”所有时钟到“axi_aclk_out”</p></li>
+</ol>
+<img alt="../_images/image452.png" src="../_images/image452.png" />
+<ol class="arabic simple" start="6">
+<li><p>连接“axi_interconnect_1”的时钟“M01_ACLK”到“axi_ctl_aclk_out”</p></li>
+</ol>
+<img alt="../_images/image462.png" src="../_images/image462.png" />
+</section>
+<section id="id5">
+<h3>连接复位信号<a class="headerlink" href="#id5" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>连接复位模块“proc_sys_reset_0”的输出“peripheral_aresetn”到AXI互联模块“axi_interconnect_1”的复位输入“M01_ARESETN”。</p></li>
+</ol>
+<img alt="../_images/image472.png" src="../_images/image472.png" />
+<ol class="arabic simple" start="2">
+<li><p>连接复位模块“proc_sys_reset_1”的输出“peripheral_aresetn”到AXI互联模块“axi_interconnect_1”的其他复位输入，连接到“axi_interconnect_0”、“axi_interconnect_2”的全部复位输入。</p></li>
+</ol>
+<img alt="../_images/image482.png" src="../_images/image482.png" />
+</section>
+<section id="id6">
+<h3>其他连接<a class="headerlink" href="#id6" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>连接“axi_pcie_0”的“M_AXI”到“axi_interconnect_0”的“S00_AXI”</p></li>
+</ol>
+<img alt="../_images/image491.png" src="../_images/image491.png" />
+<ol class="arabic simple" start="2">
+<li><p>连接ZYNQ处理器的“M_AXI_GP0”到“axi_interconnect_1”的“S00_AXI”</p></li>
+</ol>
+<img alt="../_images/image501.png" src="../_images/image501.png" />
+</section>
+<section id="id7">
+<h3>端口设置<a class="headerlink" href="#id7" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>util_ds_buf_0差分时钟输入，右键“Make External”</p></li>
+</ol>
+<img alt="../_images/image518.png" src="../_images/image518.png" />
+<img alt="../_images/image522.png" src="../_images/image522.png" />
+<ol class="arabic simple" start="2">
+<li><p>修改名称为“pcie_ref”</p></li>
+</ol>
+<img alt="../_images/image532.png" src="../_images/image532.png" />
+<ol class="arabic simple" start="3">
+<li><p>同样扩展出“axi_pcie_0”的“pcie_7x_mgt”端口，修改名称</p></li>
+</ol>
+<img alt="../_images/image541.png" src="../_images/image541.png" />
+<ol class="arabic simple" start="4">
+<li><p>将IIC_0端口引出，端口名为“si5338_iic”，用于配置SI5338</p></li>
+</ol>
+<img alt="../_images/image551.png" src="../_images/image551.png" />
+<ol class="arabic simple" start="5">
+<li><p>选择复位模块“proc_sys_reset_0”的输出“peripheral_aresetn”，右键然后选择“Create
+Port…”</p></li>
+</ol>
+<img alt="../_images/image561.png" src="../_images/image561.png" />
+<ol class="arabic simple" start="6">
+<li><p>端口名称填写“pcie_rstn”</p></li>
+</ol>
+<img alt="../_images/image571.png" src="../_images/image571.png" />
+</section>
+<section id="id8">
+<h3>地址分配<a class="headerlink" href="#id8" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple" start="7">
+<li><p>在“Address Editor”窗口点击自动分配图标</p></li>
+</ol>
+<img alt="../_images/image581.png" src="../_images/image581.png" />
+<ol class="arabic simple" start="8">
+<li><p>出现一个警告</p></li>
+</ol>
+<img alt="../_images/image591.png" src="../_images/image591.png" />
+<ol class="arabic simple" start="9">
+<li><p>把axi_pcie_0的BAR0地址范围改为256M后，重新点击自动分配</p></li>
+</ol>
+<img alt="../_images/image60.png" src="../_images/image60.png" />
+<ol class="arabic simple" start="10">
+<li><p>重新分配以后的地址，然后保存block设计</p></li>
+</ol>
+<img alt="../_images/image616.png" src="../_images/image616.png" />
+</section>
+<section id="hdl">
+<h3>创建HDL封装<a class="headerlink" href="#hdl" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>在“Sources”选项卡中选择Block设计右键，然后“Create HDL wrapper”</p></li>
+</ol>
+<img alt="../_images/image621.png" src="../_images/image621.png" />
+<ol class="arabic simple" start="2">
+<li><p>点击“OK”</p></li>
+</ol>
+<img alt="../_images/image631.png" src="../_images/image631.png" />
+</section>
+<section id="xdc">
+<h3>添加xdc约束<a class="headerlink" href="#xdc" title="此标题的永久链接">#</a></h3>
+<ol class="arabic simple">
+<li><p>在约束选项下点击“Add Sources”，在弹出的窗口选择“Add or create
+constraints”</p></li>
+</ol>
+<img alt="../_images/image641.png" src="../_images/image641.png" />
+<ol class="arabic simple" start="2">
+<li><p>点击“Create”，名称填写pcie，然后点击“Finish”</p></li>
+</ol>
+<img alt="../_images/image651.png" src="../_images/image651.png" />
+<ol class="arabic simple" start="3">
+<li><p>修改xdc文件，文件内容不再给出，在开发板给的工程里可以找到（pcie_root/pcie_root.srcs/constrs_1/new/pcie.xdc）。</p></li>
+</ol>
+<img alt="../_images/image661.png" src="../_images/image661.png" />
+</section>
+<section id="id9">
+<h3>关键步骤<a class="headerlink" href="#id9" title="此标题的永久链接">#</a></h3>
+<p>pcie模块会自动带上管脚约束信息，但是和我们的硬件设计是不相符的，这个时候需要我们把自带的xdc文件添加不使用属性。</p>
+<ol class="arabic simple">
+<li><p>在模块设计“design_1_i”右键选择“Generate Output Products…”</p></li>
+</ol>
+<img alt="../_images/image671.png" src="../_images/image671.png" />
+<ol class="arabic simple" start="2">
+<li><p>在“IP
+Sources”选项卡中搜索xdc文件，axi_pcie_X0Y0.xdc就是我们要找的文件</p></li>
+</ol>
+<img alt="../_images/image681.png" src="../_images/image681.png" />
+<ol class="arabic simple" start="3">
+<li><p>选择这个文件然后右键“Disable File”</p></li>
+</ol>
+<img alt="../_images/image691.png" src="../_images/image691.png" />
+<ol class="arabic simple" start="4">
+<li><p>编译生成bit文件</p></li>
+</ol>
+<img alt="../_images/image70.png" src="../_images/image70.png" />
+</section>
+</section>
+<section id="vitis">
+<h2>Vitis下载调试<a class="headerlink" href="#vitis" title="此标题的永久链接">#</a></h2>
+<ol class="arabic simple">
+<li><p>导出硬件</p></li>
+</ol>
+<img alt="../_images/image716.png" src="../_images/image716.png" />
+<ol class="arabic simple" start="2">
+<li><p>选择包含bit文件</p></li>
+</ol>
+<img alt="../_images/image721.png" src="../_images/image721.png" />
+<ol class="arabic simple" start="3">
+<li><p>运行Vitis</p></li>
+</ol>
+<img alt="../_images/image731.png" src="../_images/image731.png" />
+<ol class="arabic simple" start="4">
+<li><p>新建一个BSP</p></li>
+</ol>
+<img alt="../_images/image741.png" src="../_images/image741.png" />
+<ol class="arabic simple" start="5">
+<li><p>保持默认的工程名，“Board Support Package OS”选择“standalone”</p></li>
+</ol>
+<img alt="../_images/image751.png" src="../_images/image751.png" />
+<ol class="arabic simple" start="6">
+<li><p>保持默认配置，选择“OK”</p></li>
+</ol>
+<img alt="../_images/image761.png" src="../_images/image761.png" />
+<ol class="arabic simple" start="7">
+<li><p>点击“Board Support Package”/Modify BSP
+Setting,在“axi_pcie_0”这一行选择“Import Examples”，导入一个例程</p></li>
+</ol>
+<img alt="../_images/image771.png" src="../_images/image771.png" />
+<ol class="arabic simple" start="8">
+<li><p>选择“xaxipcie_rc_enumerate_example”</p></li>
+</ol>
+<img alt="../_images/image781.png" src="../_images/image781.png" />
+<ol class="arabic simple" start="9">
+<li><p>复制文件用于si5338的配置，相关文件可以到开发板例程的Vitis目录找到</p></li>
+</ol>
+<img alt="../_images/image791.png" src="../_images/image791.png" />
+<ol class="arabic simple" start="10">
+<li><p>在Vitis的工程目录选择src目录，右键“Paste”把上面复制的三个文件粘贴到src目录</p></li>
+</ol>
+<img alt="../_images/image80.png" src="../_images/image80.png" />
+<ol class="arabic simple" start="11">
+<li><p>修改“xaxipcie_rc_enumerate_example.c”文件，添加si5338的相关配置，先添加头文件</p></li>
+</ol>
+<img alt="../_images/image816.png" src="../_images/image816.png" />
+<ol class="arabic simple" start="12">
+<li><p>在PcieInitRootComplex函数中添加si5338的配置,保存编译。</p></li>
+</ol>
+<img alt="../_images/image821.png" src="../_images/image821.png" />
+<ol class="arabic simple" start="13">
+<li><p>打开运行配置</p></li>
+</ol>
+<img alt="../_images/image831.png" src="../_images/image831.png" />
+<ol class="arabic simple" start="14">
+<li><p>选择“Single Application Debug”双击</p></li>
+</ol>
+<img alt="../_images/image841.png" src="../_images/image841.png" />
+<ol class="arabic simple" start="15">
+<li><p>在PCIe
+插槽插入PCIe设备，例如SSD，网卡等，连接串口调试终端，选择复位整个系统并编程FPGA，开发板上电后点击“Run”</p></li>
+</ol>
+<img alt="../_images/image851.png" src="../_images/image851.png" />
+<ol class="arabic simple" start="16">
+<li><p>串口终端软件输入了一些信息，包括Si5338配置，PCIe设备的一些信息</p></li>
+</ol>
+<img alt="../_images/image861.png" src="../_images/image861.png" />
+</section>
+<section id="id10">
+<h2>实验总结<a class="headerlink" href="#id10" title="此标题的永久链接">#</a></h2>
+<p>本实验建立了PCIe
+Root的Vivado工程，然后通过Vitis裸机程序测试了PCIe枚举设备的功能，为我们PCIe
+Root应用打下基础，后面教程我们会通过Linux来使用PCIe Root功能。</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="16_%E5%9B%BA%E5%8C%96%E7%A8%8B%E5%BA%8F_CN.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">上一页</p>
+        <p class="prev-next-title">固化程序</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="18_%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CUbuntu%E7%B3%BB%E7%BB%9F_CN.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">下一页</p>
+        <p class="prev-next-title">安装虚拟机和Ubuntu系统</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> 目录
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vivado">Vivado工程建立</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">创建新工程</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#block">创建block设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axi-mm-to-pcie-bridge">添加AXI MM to PCIe bridge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">添加复位模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dma">添加DMA模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">连接中断</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#axi">添加AXI互联模块</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">连接时钟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">连接复位信号</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">其他连接</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">端口设置</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">地址分配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hdl">创建HDL封装</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#xdc">添加xdc约束</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">关键步骤</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vitis">Vitis下载调试</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">实验总结</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+作者： JunFN
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024 , ALINX .
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  
+        These engineering documents are copyrighted by
+            <a
+                href="https://www.alinx.com/"
+            >ALINX official website</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.en.alinx.com/">English</a> | <a href="https://ax7350b-20231-v101.readthedocs.io/zh-cn/latest/7350B_S1_RSTdocument_CN/00_%E5%85%B3%E4%BA%8EALINX_CN.html">中文</a>
+    
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
