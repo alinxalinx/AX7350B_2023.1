@@ -14,7 +14,13 @@ ZYNQ 7000 开发平台
 
    7350B_S1_RSTdocument_CN/00_关于ALINX_CN
    7350B_S1_RSTdocument_CN/00_序_CN
-   
+
+.. toctree::
+   :maxdepth: 3
+   :caption: 用户手册
+
+   AX7350B_UserManual_CN/AX7350B_UserManual
+
 .. toctree::
    :maxdepth: 2
    :caption: AX7350B型号板卡S1_FPGA教程
